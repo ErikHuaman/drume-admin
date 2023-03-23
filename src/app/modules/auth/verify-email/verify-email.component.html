@@ -1,0 +1,62 @@
+<div class="drume-container min-vh-100 d-flex align-items-center justify-content-center py-4">
+  <div class="login-box mb-2">
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body p-4">
+
+        <div class="d-grid gap-3">
+          <div>
+            <h5 class="fw-bolder">¿Olvidaste tu contraseña?</h5>
+          </div>
+
+          <form [formGroup]="form" class="d-grid gap-3">
+
+            <div>
+              <p class="m-0 text-center" *ngIf="!linkSent">Antes de continuar, ¿podría verificar su dirección de correo
+                electrónico
+                haciendo clic en el enlace que le acabamos de enviar? Si no recibiste el correo electrónico, con gusto
+                te enviaremos otro.</p>
+              <p class="m-0 text-center" *ngIf="linkSent">Se ha enviado un nuevo enlace de verificación al correo
+                electrónico que
+                proporcionó en la configuración de su perfil.</p>
+
+            </div>
+
+            <div class="d-grid gap-3 my-2">
+              <div>
+                <label class="form-label fw-bolder">Correo Electrónico</label>
+                <input pInputText class="w-100 p-inputtext-sm shadow-none" type="email" formControlName="email">
+              </div>
+
+
+              <div>
+                <button class="p-button w-100 bg-gray-700 hover shadow-none">
+                  <div class="mx-auto d-flex justify-content-center align-items-center ">
+                    <p class="m-0 ms-2">
+                      Reenviar correo de verificación
+                    </p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div class="p-2">
+              <p class="text-center m-0 pointer underline" routerLink="/auth/login">
+                Ya tengo una cuenta
+              </p>
+            </div>
+
+            <!-- <div class="p-4">
+              <p class="fw-bolder text-uppercase text-center m-0 pointer" routerLink="/">
+                Volver a la tienda
+              </p>
+            </div> -->
+
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+</div>

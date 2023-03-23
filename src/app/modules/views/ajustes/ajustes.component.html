@@ -1,0 +1,195 @@
+<div class="container-fluid py-2 py-md-2">
+  <div class="container-fieldset w-100">
+    <p-fieldset styleClass="w-100" legend="Banners" [toggleable]="true">
+      <div class="container-fluid">
+
+        <div class="d-flex justify-content-between mb-4">
+          <div>
+            <span class="p-input-icon-right">
+              <i class="fas fa-times pointer" (click)="limpiarBanner()"></i>
+              <input pInputText type="text" class="p-inputtext-sm rounded-0 rounded-start" placeholder="Título"
+                [(ngModel)]="searchBanner" />
+            </span>
+            <button pButton class="p-button-sm btn-gray-700 rounded-0 rounded-end" icon="fas fa-magnifying-glass"
+              (click)="buscarBanner()"></button>
+          </div>
+          <div>
+            <button pButton class="p-button-sm btn-gray-700" icon="fas fa-plus" (click)="newBanner()"
+              label="Nuevo Banner"></button>
+          </div>
+        </div>
+
+        <p-table styleClass="w-100 p-datatable-sm p-datatable-gridlines p-datatable-striped table-thead-dark"
+          [responsive]="true" responsiveLayout="scroll" [value]="this.listBanners">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center" style="width: 6rem !important;">Id</th>
+              <th class="text-center text-lg-start">Titulo</th>
+              <th class="text-center">Url</th>
+              <th class="text-center">Caducidad</th>
+              <th class="text-center" style="width: 8rem !important;">Estado</th>
+              <th class="text-center" style="width: 10rem !important;">Opciones</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td class="text-center">{{ item.id }}</td>
+              <td class="text-left">{{ item.title }}</td>
+              <td class="text-center">{{ item.url }}</td>
+              <td class="text-center">{{ item.expire }}</td>
+              <td class="text-center">
+                {{ item.active ? 'Activo' : 'Inactivo' }}
+              </td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center">
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-sm p-button-rounded p-button-success mx-1"
+                    (click)="editBanner(item)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-sm p-button-rounded p-button-danger mx-1"
+                    (click)="delBanner(item.id)"></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td class="text-center" colspan="100">
+                No se encontró resultados
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+    </p-fieldset>
+  </div>
+
+  <div class="container-fieldset w-100">
+    <p-fieldset styleClass="w-100" legend="Carruseles" [toggleable]="true">
+
+      <div class="container-fluid">
+
+        <div class="d-flex justify-content-between mb-4">
+          <div>
+            <span class="p-input-icon-right">
+              <i class="fas fa-times pointer" (click)="limpiarCarrousel()"></i>
+              <input pInputText type="text" class="p-inputtext-sm rounded-0 rounded-start" placeholder="Nombre"
+                [(ngModel)]="searchCarrousel" />
+            </span>
+            <button pButton class="p-button-sm btn-gray-700 rounded-0 rounded-end" icon="fas fa-magnifying-glass"
+              (click)="buscarCarrousel()"></button>
+          </div>
+          <div>
+            <button pButton class="p-button-sm btn-gray-700" icon="fas fa-plus" (click)="newCarrousel()"
+              label="Nuevo Carrusel"></button>
+          </div>
+        </div>
+
+        <p-table styleClass="w-100 p-datatable-sm p-datatable-gridlines p-datatable-striped table-thead-dark"
+          [responsive]="true" responsiveLayout="scroll" [value]="this.listCarousel">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center" style="width: 6rem !important;">Id</th>
+              <th class="text-center text-lg-start">Título</th>
+              <th class="text-center text-lg-start">Descripción</th>
+              <th class="text-center" style="width: 10rem !important;">Imagen</th>
+              <th class="text-center">Url</th>
+              <th class="text-center">Caducidad</th>
+              <th class="text-center" style="width: 8rem !important;">Estado</th>
+              <th class="text-center" style="width: 10rem !important;">Opciones</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td class="text-center">{{ item.id }}</td>
+              <td class="text-left">{{ item.title }}</td>
+              <td class="text-left">{{ item.description }}</td>
+              <td class="text-center">
+                <img class="w-100" [src]="this.urlApi + item.image" alt="">
+              </td>
+              <td class="text-center">{{ item.url }}</td>
+              <td class="text-center">{{ item.expire }}</td>
+              <td class="text-center">
+                {{ item.active ? 'Activo' : 'Inactivo' }}
+              </td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center">
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-sm p-button-rounded p-button-success mx-1"
+                    (click)="editBanner(item)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-sm p-button-rounded p-button-danger mx-1"
+                    (click)="delBanner(item.id)"></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td class="text-center" colspan="100">
+                No se encontró resultados
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+    </p-fieldset>
+  </div>
+
+  <!-- <div class="container-fieldset">
+    <p-fieldset legend="Banners" [toggleable]="true">
+      <div class="container-fluid">
+        <p-table styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped table-thead-dark"
+          [responsive]="true" responsiveLayout="scroll" [value]="this.listBanners">
+
+          <ng-template pTemplate="header">
+            <tr>
+              <th class="text-center" style="width: 6rem !important;">Id</th>
+              <th class="text-center text-lg-start">Nombre</th>
+              <th class="text-center" style="width: 10rem !important;">Imagen</th>
+              <th class="text-center">Categoría</th>
+              <th class="text-center" style="width: 8rem !important;">Estado</th>
+              <th class="text-center" style="width: 10rem !important;">Opciones</th>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="body" let-item>
+            <tr>
+              <td class="text-center">{{ item.id }}</td>
+              <td class="text-left">{{ item.name }}</td>
+              <td class="text-center">
+                <img class="w-100" [src]="this.urlApi + item.image" alt="">
+              </td>
+              <td class="text-center">{{ item.category.name }}</td>
+              <td class="text-center">
+                {{ item.active ? 'Activo' : 'Inactivo' }}
+              </td>
+              <td class="text-center">
+                <div class="d-flex justify-content-center">
+                  <button pButton pRipple icon="pi pi-pencil" class="p-button-sm p-button-rounded p-button-success mx-1"
+                    (click)="editBanner(item)"></button>
+                  <button pButton pRipple icon="pi pi-trash" class="p-button-sm p-button-rounded p-button-danger mx-1"
+                    (click)="delBanner(item.id)"></button>
+                </div>
+              </td>
+            </tr>
+          </ng-template>
+
+          <ng-template pTemplate="emptymessage">
+            <tr>
+              <td class="text-center" colspan="100">
+                No se encontró resultados
+              </td>
+            </tr>
+          </ng-template>
+
+        </p-table>
+      </div>
+    </p-fieldset>
+  </div> -->
+
+</div>

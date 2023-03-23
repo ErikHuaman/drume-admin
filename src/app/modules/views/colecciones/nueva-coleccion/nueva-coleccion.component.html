@@ -1,0 +1,36 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Categoría</label>
+      <p-dropdown styleClass="w-100 p-inputtext-sm" [options]="listCategories" optionLabel="name" optionValue="id"
+        [(ngModel)]="data.categoryId" [required]="submited && !data.categoryId" placeholder="Seleccionar categoría"
+        appendTo="body">
+      </p-dropdown>
+      <small *ngIf="submited && !data.categoryId" class="p-error block">Seleccione una categoría.</small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Nombre de la colección</label>
+      <input pInputText type="text" class="p-inputtext-sm w-100 {{ submited && !data.name ? 'ng-invalid ng-dirty': ''}}"
+        [(ngModel)]="data.name" />
+      <small *ngIf="submited && !data.name" class="p-error block">Es necesario ingresar un nombre.</small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Foto principal</label>
+      <input #fileUpload type="file" accept=".png,.jpg" class="d-none" (change)="captureImage($event)">
+      <button pButton class="p-button-sm btn-sky-700 w-100" icon="fas fa-camera" (click)="fileUpload.click()"></button>
+      <div class="w-100 d-flex justify-content-center" style="height: 18rem;">
+        <img *ngIf="this.preview" class="border" style="height: 100%;" [src]="this.preview" alt="" srcset="">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <button pButton class="p-button-sm p-button-danger mx-2 px-4" (click)="cancel()" label="Cancelar"></button>
+    <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" (click)="save()" label="Guardar"></button>
+  </div>
+
+</div>

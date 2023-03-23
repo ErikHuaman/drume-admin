@@ -1,0 +1,81 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Nombre del descuento</label>
+      <input pInputText type="text" class="p-inputtext-sm w-100 {{ submited && !data.name ? 'ng-invalid ng-dirty': ''}}"
+        [(ngModel)]="data.name" />
+      <small *ngIf="submited && !data.name" class="p-error block">Es necesario ingresar un nombre.</small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Tipo de descuento</label>
+      <p-dropdown styleClass="w-100 p-inputtext-sm" [options]="this.list" optionLabel="name" optionValue="id"
+        [(ngModel)]="data.typeId" [required]="submited && !data.typeId" placeholder="Seleccionar categoría"
+        appendTo="body" (onChange)="changeType($event)">
+      </p-dropdown>
+      <small *ngIf="submited && !data.typeId" class="p-error block">Seleccione un tipo de descuento.</small>
+    </div>
+
+    <div class="col-12 mb-3" [ngSwitch]="data.typeId">
+      <div class="row" *ngSwitchCase="1">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Porcentaje</label>
+          <input pInputText type="number"
+            class="p-inputtext-sm w-100 {{ submited && !data.percent ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.percent" />
+          <small *ngIf="submited && !data.percent" class="p-error block">Es necesario ingresar un porcentaje.</small>
+        </div>
+      </div>
+      <div class="row" *ngSwitchCase="2">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Precio fijo</label>
+          <input pInputText type="number"
+            class="p-inputtext-sm w-100 {{ submited && !data.fixed ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.fixed" />
+          <small *ngIf="submited && !data.fixed" class="p-error block">Es necesario ingresar un precio.</small>
+        </div>
+
+      </div>
+      <div class="row" *ngSwitchCase="3">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Cantidad de productos</label>
+          <input pInputText type="number"
+            class="p-inputtext-sm w-100 {{ submited && !data.quantity ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.quantity" />
+          <small *ngIf="submited && !data.quantity" class="p-error block">Es necesario ingresar una cantidad.</small>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Cantidad a pagar</label>
+          <input pInputText type="number"
+            class="p-inputtext-sm w-100 {{ submited && !data.quantityPay ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.quantityPay" />
+          <small *ngIf="submited && !data.quantityPay" class="p-error block">Es necesario ingresar una cantidad.</small>
+        </div>
+      </div>
+      <div class="row" *ngSwitchCase="4">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Código</label>
+          <input pInputText type="text"
+            class="p-inputtext-sm w-100 {{ submited && !data.code ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.code" />
+          <small *ngIf="submited && !data.code" class="p-error block">Es necesario ingresar un código.</small>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Precio fijo</label>
+          <input pInputText type="number"
+            class="p-inputtext-sm w-100 {{ submited && !data.fixed ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.fixed" />
+          <small *ngIf="submited && !data.fixed" class="p-error block">Es necesario ingresar un precio.</small>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <button pButton class="p-button-sm p-button-danger mx-2 px-4" (click)="cancel()" label="Cancelar"></button>
+    <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" (click)="save()" label="Guardar"></button>
+  </div>
+
+</div>

@@ -1,0 +1,22 @@
+<div rowspan="100" class="w-100 d-md-flex justify-content-end align-items-center paginador p-2">
+  <div class="d-flex justify-content-end align-items-center mb-2 mb-md-0">
+    <span class="text-sm">Mostrando {{config.first}} a {{config.last}} de {{paginadorValue.totalRecords}}
+      entradas</span>
+  </div>
+  <div class="d-flex justify-content-end align-items-center">
+    <div class="d-flex align-items-center mx-2">
+      <button pButton pRipple type="button" icon="pi pi-angle-double-left" class="p-button-rounded p-button-text"
+        (click)="toFirst()" [disabled]="disabledAll || disabledFirst"></button>
+      <button pButton pRipple type="button" icon="pi pi-angle-left" class="p-button-rounded p-button-text"
+        (click)="toPrev()" [disabled]="disabledAll || disabledPrev"></button>
+      <button [disabled]="disabledAll" pButton pRipple type="button" [label]="this.config.page"
+        class="p-button-text"></button>
+      <button pButton pRipple type="button" icon="pi pi-angle-right" class="p-button-rounded p-button-text"
+        (click)="toNext()" [disabled]="disabledAll || disabledNext"></button>
+      <button pButton pRipple type="button" icon="pi pi-angle-double-right" class="p-button-rounded p-button-text"
+        (click)="toLast()" [disabled]="disabledAll || disabledLast"></button>
+    </div>
+    <p-dropdown [disabled]="disabledAll" class="dropdown-w" [options]="rowsPerPageOptions"
+      [(ngModel)]="paginadorValue.rows" appendTo="body" (onChange)="changerows($event)"></p-dropdown>
+  </div>
+</div>

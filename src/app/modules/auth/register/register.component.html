@@ -1,0 +1,100 @@
+<div class="drume-container min-vh-100 d-flex align-items-center justify-content-center py-4">
+  <div class="login-box mb-2">
+    <!-- /.login-logo -->
+    <div class="card">
+      <div class="card-body login-card-body p-4">
+        <div class="d-grid gap-3">
+          <div>
+            <h5 class="fw-bolder">Únete y disfruta de Drumé</h5>
+          </div>
+
+          <form [formGroup]="form" class="d-grid gap-3">
+
+            <div>
+              <p class="m-0">Comienza creando tu cuenta con tu red social</p>
+            </div>
+
+            <div class="row">
+              <div class="col-6">
+                <button class="p-button w-100 bg-facebook hover">
+                  <div class="mx-auto d-flex justify-content-center align-items-center">
+                    <i class="fab fa-facebook"></i>
+                    <p class="m-0 ms-2">
+                      Facebook
+                    </p>
+                  </div>
+                </button>
+              </div>
+              <div class="col-6">
+                <button class="p-button w-100 bg-google hover">
+                  <div class="mx-auto d-flex justify-content-center align-items-center">
+                    <i class="fab fa-google"></i>
+                    <p class="m-0 ms-2">
+                      Google
+                    </p>
+                  </div>
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <div class="social-auth-links"> </div>
+            </div>
+
+
+            <div>
+              <p class="m-0">Completa tu registro llenando tus datos</p>
+            </div>
+
+            <div>
+              <label class="form-label fw-bolder">Nombre</label>
+              <input pInputText class="w-100 p-inputtext-sm shadow-none" type="text" formControlName="name">
+            </div>
+            <div>
+              <label class="form-label fw-bolder">Apellidos</label>
+              <input pInputText class="w-100 p-inputtext-sm shadow-none" type="text" formControlName="lastName">
+            </div>
+            <div>
+              <label class="form-label fw-bolder">Correo Electrónico</label>
+              <input pInputText class="w-100 p-inputtext-sm shadow-none" type="email" formControlName="email">
+            </div>
+            <div>
+              <label class="form-label fw-bolder">Contraseña</label>
+              <div class="position-relative">
+                <input type="text" pInputText class="w-100 p-inputtext-sm shadow-none"
+                  style="padding-right: 2.2rem !important;" [type]="show ? 'text' : 'password' "
+                  formControlName="password">
+                <div class="position-absolute end-0 top-0 d-flex align-items-center px-2 h-100">
+                  <i (click)="show = !show" class="pointer {{show ? 'fas fa-eye-slash' : 'fas fa-eye'}}"></i>
+                </div>
+              </div>
+            </div>
+            <div>
+              <button class="p-button w-100 bg-gray-700 hover shadow-none">
+                <div class="mx-auto d-flex justify-content-center align-items-center">
+                  <p class="m-0 ms-2">
+                    Registrarse
+                  </p>
+                </div>
+              </button>
+            </div>
+
+            <div class="p-2">
+              <p class="text-center m-0 pointer underline" routerLink="/auth/login">
+                Ya tengo una cuenta
+              </p>
+            </div>
+
+            <!-- <div class="p-4">
+              <p class="fw-bolder text-uppercase text-center m-0 pointer" routerLink="/">
+                Volver a la tienda
+              </p>
+            </div> -->
+
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>

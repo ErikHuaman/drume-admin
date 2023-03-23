@@ -1,0 +1,15 @@
+export enum Endpoint {
+  countries = 'countries',
+  regions = 'regions',
+  provinces = 'provinces',
+  cities = 'cities',
+  banners = 'banners',
+  carousels = 'carousels',
+  categories = 'categories',
+  collections = 'collections',
+  types = 'types',
+  discounts = 'discounts',
+  sizes = 'sizes',
+  colors = 'colors',
+  products = 'products',
+}
