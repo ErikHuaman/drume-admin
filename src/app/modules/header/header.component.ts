@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { HeaderService } from 'src/app/core/services/header.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'header-drume',
@@ -18,5 +19,11 @@ export class HeaderComponent implements OnInit {
 
   expand() {
     this._h.setSidebar();
+  }
+
+  toMail() {}
+
+  toShop() {
+    window.open(environment.mediaUrl, '_blank');
   }
 }

@@ -1,0 +1,64 @@
+<div class="container-fluid py-2 py-md-2">
+  <div class="d-flex justify-content-between mb-4">
+    <div>
+      <span class="p-input-icon-right">
+        <i class="fas fa-times pointer" (click)="limpiar()"></i>
+        <input pInputText type="text" class="p-inputtext-sm rounded-0 rounded-start" placeholder="título"
+          [(ngModel)]="this.nameSearch" />
+      </span>
+      <button pButton class="p-button-sm btn-gray-700 rounded-0 rounded-end" icon="fas fa-magnifying-glass"
+        (click)="buscar()"></button>
+    </div>
+    <div>
+      <button pButton class="p-button-sm btn-gray-700" icon="fas fa-plus" (click)="this.showUpload = !this.showUpload"
+        label="Añadir Nuevo"></button>
+    </div>
+  </div>
+
+  <div *ngIf="this.showUpload" class="file-upload p-4 position-relative" (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)" (drop)="onDrop($event)">
+    <button pButton pRipple type="button" icon="pi pi-times"
+      class="p-button-rounded p-button-text p-button-plain position-absolute top-0 end-0"
+      (click)="this.showUpload = false"></button>
+    <div class="drop-area" *ngIf="showDropArea" (click)="showDropArea = false">
+      <p>Suelta los archivos aquí</p>
+    </div>
+    <label class="m-0" for="file-input">Arrastra y suelta archivos aquí</label>
+    <p class="my-2">o</p>
+    <input #fileUpload id="file-input" type="file" (change)="onFileSelected($event)" accept="image/*">
+
+    <button pButton class="p-button-sm btn-sky-700" (click)="fileUpload.click()" label="Seleccionar archivos"></button>
+    <p class="m-0 mt-4">Tamaño máximo de archivo: 1 MB.</p>
+  </div>
+
+  <div class="border p-4">
+    <div *ngIf="this.data.length > 0" class="row">
+      <div *ngFor="let image of this.data" class="col-4 col-lg-2">
+        <div class="image-container">
+          <div class="image-wrapper">
+            <img loading="lazy" [src]="this.mediaUrl + image.url" [alt]="image.url">
+          </div>
+          <button pButton pRipple type="button" icon="pi pi-times"
+            class="btn btn-circle-xs p-button-text p-button-plain position-absolute top-0 end-0"
+            (click)="deleteItem(image.id)"></button>
+        </div>
+        <div class="image-name">
+          <p class="m-0 fs-8 d-flex align-items-center justify-content-center" *ngIf="!image.btn"
+            (click)="copyItem(image)">
+            <i class="pi pi-copy me-2"></i> Copiar url
+          </p>
+          <p class="m-0 fs-8 d-flex align-items-center justify-content-center" *ngIf="image.btn">
+            <i class="pi pi-check me-2"></i> Copiado
+          </p>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="this.data.length == 0" class="d-flex justify-content-center">
+      No se encontró medios cargados
+    </div>
+  </div>
+
+  <paginator-drume [(ngModel)]="paginadorValue" [rowsPerPageOptions]="[10, 25, 50, 100]"
+    (change)="this.getData()"></paginator-drume>
+
+</div>

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { MessageGlobalService } from 'src/app/core/services/message-global.service';
 
 @Component({
   selector: 'app-login',
@@ -17,7 +18,8 @@ export class LoginComponent implements OnInit {
     private route: ActivatedRoute,
     private fb: FormBuilder,
     private router: Router,
-    private authService: AuthService
+    private authService: AuthService,
+    private msg: MessageGlobalService
   ) {
     this.form = this.fb.group({
       email: [
@@ -36,8 +38,17 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.authService.login(this.form.value).subscribe((res) => {
-        this.authService.setCurrentUser(res.data);
+      this.msg.loading(true);
+      this.authService.login(this.form.value).subscribe({
+        next: (res) => {
+          this.authService.setCurrentUser(res.data);
+          this.msg.loading(false);
+        },
+        error: (res) => {
+          console.log(res);
+          this.msg.error(res.error.msg);
+          this.msg.loading(false);
+        },
       });
     }
   }

@@ -7,6 +7,7 @@ export class HeaderService {
   title: string = '';
 
   showSidebar: boolean = true;
+  showMobile: boolean = false;
 
   constructor() {}
 
@@ -16,5 +17,6 @@ export class HeaderService {
 
   setSidebar() {
     this.showSidebar = !this.showSidebar;
+    this.showMobile = !this.showMobile;
   }
 }

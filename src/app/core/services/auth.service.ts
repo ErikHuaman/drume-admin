@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { map, Observable } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { environment } from 'src/environments/environment';
+import { MessageGlobalService } from './message-global.service';
 
 @Injectable({
   providedIn: 'root',
@@ -11,9 +12,13 @@ import { environment } from 'src/environments/environment';
 export class AuthService {
   token: string = '';
 
-  urlApi: string = `${environment.protocol}://${environment.host}:${environment.port}/`;
+  apiUrl: string = environment.apiUrl;
 
-  constructor(private http: HttpClient, private router: Router) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private msg: MessageGlobalService
+  ) {}
 
   logout() {
     localStorage.removeItem('user');
@@ -26,7 +31,7 @@ export class AuthService {
         'Content-Type': 'application/json',
       }),
     };
-    return this.http.post(`${this.urlApi}auth/login`, user, options);
+    return this.http.post(`${this.apiUrl}auth/login`, user, options);
   }
 
   public setCurrentUser(user: any) {
@@ -63,6 +68,14 @@ export class AuthService {
       }
 
       if (!decodedToken) {
+        localStorage.removeItem('user');
+        return false;
+      }
+
+      if (!decodedToken.isAdmin) {
+        this.msg.warn(
+          'No tienes los permisos necesarios para acceder a este sitio. Pongase en contacto con el administrador.'
+        );
         localStorage.removeItem('user');
         return false;
       }

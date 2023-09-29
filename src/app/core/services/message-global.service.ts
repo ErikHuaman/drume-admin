@@ -27,11 +27,17 @@ export class MessageGlobalService {
   }
 
   loading(loading: boolean) {
-    this._loading.next(loading);
+    setTimeout(() => {
+      this._loading.next(loading);
+    });
   }
 
   confirm(confirm: Confirmation) {
-    this._confim.next(confirm);
+    (confirm.acceptButtonStyleClass =
+      confirm.acceptButtonStyleClass ?? 'p-button-sm btn-gray-700'),
+      (confirm.rejectButtonStyleClass =
+        confirm.rejectButtonStyleClass ?? 'p-button-sm p-button-danger'),
+      this._confim.next(confirm);
   }
 
   error(msg: string) {

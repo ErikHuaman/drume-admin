@@ -1,0 +1,98 @@
+<div class="row">
+  <div class="col-6 drag-column">
+    <div class="d-flex flex-column h-100">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Categoría</label>
+          <p-dropdown styleClass="w-100 p-inputtext-sm text-capitalize" panelStyleClass="text-capitalize"
+            [options]="listCategories" optionLabel="name" optionValue="id" placeholder="Seleccionar categoría"
+            appendTo="body" (onChange)="changeCategory($event.value)">
+          </p-dropdown>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Colección</label>
+          <p-dropdown styleClass="w-100 p-inputtext-sm text-capitalize" panelStyleClass="text-capitalize"
+            [options]="listCollections" optionLabel="name" optionValue="id" [(ngModel)]="this.collectionId"
+            placeholder="Seleccionar colección" appendTo="body" (onChange)="changeCollection($event.value)">
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="border p-2 flex-grow-1">
+        <div *ngIf="!this.collectionId" class="w-100 h-100 d-flex align-items-center justify-content-center fs-7 p-2">
+          Selecciona una colección
+        </div>
+        <div *ngIf="this.collectionId" class="w-100 h-100" pDroppable="products" pDroppable="products"
+          (onDrop)="dropInverse($event)">
+          <div *ngFor="let product of availableProducts">
+            <div class="product-item border rounded-2 mb-2 bg-gray-200" pDraggable="products"
+              (onDragStart)="dragStart($event, product)" (onDragEnd)="dragEnd($event)">
+              <div class="image-container">
+                <img loading="lazy" [src]="this.mediaUrl + product.productColors[0].image" [alt]="product.name"
+                  class="product-image" />
+              </div>
+              <div class="product-list-detail">
+                <h5 class="mb-2">{{product.name}}</h5>
+                <i class="pi pi-bookmark product-category-icon"></i>
+                <span class="product-category">{{product.collection.name}}, {{product.collection.category.name}}</span>
+                <p class="mt-2" *ngIf="product.productColors[0].discountId">
+                  <i class="pi pi-tag product-category-icon"></i>
+                  <span class="product-category">{{product.productColors[0].discount.name}}</span>
+                </p>
+              </div>
+              <div class="product-list-action">
+                <h6 class="mb-2">{{product.productColors[0].price | currency : 'S/ '}}</h6>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+  <div class="col-6 drag-column">
+    <div class="d-flex flex-column h-100">
+      <div class="row">
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Tipo de Descuentos</label>
+          <p-dropdown styleClass="w-100 p-inputtext-sm text-capitalize" panelStyleClass="text-capitalize"
+            [options]="listTypes" optionLabel="name" optionValue="id" placeholder="Seleccionar categoría"
+            appendTo="body" (onChange)="changeType($event.value)">
+          </p-dropdown>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Descuentos</label>
+          <p-dropdown styleClass="w-100 p-inputtext-sm text-capitalize" panelStyleClass="text-capitalize"
+            [options]="listDiscounts" optionLabel="name" [(ngModel)]="this.discount" placeholder="Seleccionar colección"
+            appendTo="body" (onChange)="changeDiscount($event.value.id)">
+          </p-dropdown>
+        </div>
+      </div>
+      <div class="border p-2 flex-grow-1">
+        <div *ngIf="!this.discount" class="w-100 h-100 d-flex align-items-center justify-content-center fs-7 p-2">
+          Selecciona un descuento
+        </div>
+        <div *ngIf="this.discount" class="w-100 h-100" pDroppable="products" (onDrop)="drop($event)">
+          <div *ngFor="let product of selectedProducts">
+            <div class="product-item border rounded-2 mb-2 bg-warning" pDraggable="products"
+              (onDragStart)="dragStartInverse($event, product)" (onDragEnd)="dragEndInverse($event)">
+              <div class="image-container">
+                <img loading="lazy" [src]="this.mediaUrl + product.productColors[0].image" [alt]="product.name"
+                  class="product-image" />
+              </div>
+              <div class="product-list-detail">
+                <h5 class="mb-2">{{product.name}}</h5>
+                <i class="pi pi-tag product-category-icon"></i>
+                <span class="product-category">{{product.collection.name}}, {{product.collection.category.name}}</span>
+              </div>
+              <div class="product-list-action">
+                <h6 class="mb-2">{{product.productColors[0].price | currency : 'S/ '}}</h6>
+                <!-- <span class="'product-badge status-'{{product.inventoryStatus.toLowerCase()}}">{{product.inventoryStatus}}</span> -->
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

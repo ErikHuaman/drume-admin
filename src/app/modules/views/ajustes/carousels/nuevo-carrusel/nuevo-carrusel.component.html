@@ -1,0 +1,49 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Título de carrusel</label>
+      <input pInputText type="text"
+        class="p-inputtext-sm w-100 {{ submited && !data.title ? 'ng-invalid ng-dirty': ''}}"
+        [(ngModel)]="data.title" />
+      <small *ngIf="submited && !data.title" class="p-error block">Es necesario ingresar un título.</small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Descripción</label>
+      <input pInputText type="text" class="p-inputtext-sm w-100" [(ngModel)]="data.description" />
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Url <small class="fw-lighter fst-italic">(Opcional)</small></label>
+      <p-dropdown styleClass="w-100 p-inputtext-sm" [options]="this.routeList" [(ngModel)]="data.url" optionLabel="url"
+        optionValue="url" placeholder="Seleccionar url" [showClear]="true" appendTo="body">
+      </p-dropdown>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Foto principal</label>
+      <input #fileUpload type="file" accept="image/*" class="d-none" (change)="captureImage($event)">
+      <button pButton class="p-button-sm btn-sky-700 w-100" icon="fas fa-camera" (click)="fileUpload.click()"></button>
+      <div class="w-100 d-flex justify-content-center bg-gray-700">
+        <img loading="lazy" class="w-100 border" *ngIf="this.preview" [src]="this.preview" alt="" srcset="">
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <div class="d-flex flex-column align-items-center">
+        <label class="fw-bolder mb-2">Fecha de caducidad <small class="fw-lighter fst-italic">(Opcional)</small></label>
+        <p-calendar styleClass="p-inputtext-sm" dateFormat="yy/mm/dd" placeholder="Año/Mes/Día" inputId="expire"
+          [(ngModel)]="date" [showIcon]="true" appendTo="body"></p-calendar>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <button pButton class="p-button-sm p-button-danger mx-2 px-4" (click)="cancel()" label="Cancelar"></button>
+    <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" [disabled]="this.invalid()" (click)="save()"
+      [label]="this.isEdit ? 'Actualizar' : 'Guardar' "></button>
+  </div>
+
+</div>

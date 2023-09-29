@@ -22,12 +22,13 @@
 
       <ng-template pTemplate="header">
         <tr>
-          <th class="text-center text-lg-start">Nombre</th>
+          <th class="text-start" style="width: 10rem !important;">Nombre</th>
+          <th class="text-start">Descripción</th>
           <th class="text-center" style="width: 8rem !important;">Imagen</th>
-          <th class="text-center" style="width: 8rem !important;">Categoría</th>
-          <th class="text-center" style="width: 8rem !important;">Colección</th>
-          <th class="text-center" style="width: 8rem !important;">Precio</th>
-          <th class="text-center" style="width: 8rem !important;">Stock</th>
+          <th class="text-center" style="width: 6rem !important;">Categoría</th>
+          <th class="text-center" style="width: 6rem !important;">Colección</th>
+          <th class="text-center" style="width: 6rem !important;">Precio</th>
+          <th class="text-center" style="width: 5rem !important;">Stock</th>
           <th class="text-center" style="width: 8rem !important;">Descuento</th>
           <th class="text-center" style="width: 6rem !important;">Estado</th>
           <th class="text-center" style="width: 4rem !important;">Opciones</th>
@@ -36,26 +37,35 @@
 
       <ng-template pTemplate="body" let-item>
         <tr>
-          <td class="text-left">{{ item.name }}</td>
+          <td class="text-left text-capitalize">{{ item.name }}</td>
+          <td class="text-left text-capitalize"> <span class="fs-7 text-truncate text-truncate-6"
+              [innerHTML]="item.description"></span></td>
           <td class="text-center">
-            <img class="w-100" [src]="this.urlApi + item.product_colors[0].image" alt="">
+            <img loading="lazy" class="w-100" [src]="this.mediaUrl + item.productColors[0].image" alt="">
           </td>
-          <td class="text-center">{{ item.collection.category.name }}</td>
-          <td class="text-center">{{item.collection.name}}</td>
-          <td class="text-center">{{item.product_colors[0].price | currency : 'S/'}}</td>
+          <td class="text-center text-capitalize">{{ item.collection.category.name }}</td>
+          <td class="text-center text-capitalize">{{item.collection.name}}</td>
+          <td class="text-center">{{item.productColors[0].price | currency : 'S/'}}</td>
           <td class="text-center">
-            <!-- {{item.product_colors[0].color_sizes | json}} -->
+            <button pButton pRipple icon="fas fa-chart-simple"
+              class="btn btn-circle-xs p-button-outlined p-button-info mx-auto" pTooltip="Gestionar stock"
+              tooltipPosition="top" (click)="setStock(item)"></button>
+
           </td>
-          <td class="text-center">{{item.product_colors[0].discount}}</td>
+          <td class="text-center">{{item.productColors[0].discount?.name}}</td>
           <td class="text-center">
-            {{ item.status ? 'Activo' : 'Inactivo' }}
+            <button type="button" class="btn p-button-xs rounded-4 mx-auto"
+              [ngClass]="item.active ? 'btn-success' : 'btn-warn' "
+              (click)="this.changeStatus(item)">{{item.active ? 'ACTIVO' : 'INACTIVO' }}</button>
           </td>
           <td class="text-center">
             <div class="d-flex justify-content-center">
-              <button pButton pRipple icon="pi pi-pencil" class="btn p-button-sm p-button-rounded p-button-success mx-1"
-                (click)="verEdit(item)"></button>
-              <button pButton pRipple icon="pi pi-trash" class="btn p-button-sm p-button-rounded p-button-danger mx-1"
-                (click)="confirm(item.id)"></button>
+              <button pButton pRipple icon="pi pi-pencil" class="btn btn-circle-xs p-button-success mx-1"
+                pTooltip="Editar" tooltipPosition="top" tooltipStyleClass="fs-8" (click)="editItem(item)"></button>
+              <button pButton pRipple icon="pi pi-clone" class="btn btn-circle-xs p-button-warning mx-1"
+                pTooltip="Clonar" tooltipPosition="top" (click)="cloneItem(item)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="btn btn-circle-xs p-button-danger mx-1"
+                pTooltip="Eliminar" tooltipPosition="top" (click)="deleteItem(item)"></button>
             </div>
           </td>
         </tr>
@@ -72,7 +82,7 @@
     </p-table>
 
     <paginator-drume [(ngModel)]="paginadorValue" [rowsPerPageOptions]="[10, 25, 50, 100]"
-      (change)="this.getProducts()"></paginator-drume>
+      (change)="this.getData()"></paginator-drume>
 
   </div>
 

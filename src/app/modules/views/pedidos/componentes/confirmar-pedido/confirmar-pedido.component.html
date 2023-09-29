@@ -1,0 +1,112 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <div class="d-flex justify-content-between align-items-center p-2 border">
+        <p class="m-0 fw-semibold">
+          Pedido: #{{ this.setPad(this.order.id, 4) }}
+        </p>
+        <p class="m-0 fw-semibold">TOTAL:
+          {{ this.order.total + this.order.shipment | currency: 'S/ ' }}
+        </p>
+      </div>
+      <div class="p-2 border">
+        <p class="m-0">
+          {{ this.order.info.name }}
+        </p>
+        <p class="m-0">
+          {{ this.order.info.dni }}
+        </p>
+        <p class="m-0">
+          {{ this.order.info.email }}
+        </p>
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+
+      <div class="p-2 border">
+        <p class="m-0 fw-semibold">Resumen</p>
+      </div>
+
+
+      <div class="border px-2 py-1">
+
+        <div *ngFor="let item of this.order.items" class="flex justify-between items-center border-bottom">
+          <div class="row">
+            <div class="col-6">
+              <p class="m-0 text-capitalize">
+                {{ item.name }}
+              </p>
+              <p class="m-0 text-capitalize">
+                Cantidad: {{ item.quantity }}
+              </p>
+            </div>
+            <div class="col-6">
+              <div class="d-flex justify-content-end align-items-center pt-1 h-100">
+                <div class="d-flex flex-column">
+                  <div class="d-flex mb-1">
+                    <span *ngIf="item.size[2]" class="me-2 text-start" style="width: 1.5rem;">El</span>
+                    <div class="square border border-end-0 border-dark" [style]="'background: '+ item.color.code">
+                    </div>
+                    <div class="square border border-dark d-flex justify-content-center align-items-center">
+                      <p class="m-0">
+                        {{item.size[1]}}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="d-flex" *ngIf="item.size[2]">
+                    <span class="me-2 text-start" style="width: 1.5rem;">Ella</span>
+                    <div class="square border border-end-0 border-dark" [style]="'background: '+ item.color.code">
+                    </div>
+                    <div class="square border border-dark d-flex justify-content-center align-items-center">
+                      <p class="m-0">
+                        {{item.size[2]}}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mb-3">
+      <div class="row">
+        <div class="col-6">
+          <label class="fw-bolder mb-2">Estado</label>
+          <div class="d-flex align-items-center py-2">
+            <p-inputSwitch [(ngModel)]="confirm" inputId="checked-checkbox" styleClass="shadow-none"></p-inputSwitch>
+            <label for="checked-checkbox" class="ms-2 pb-1">
+              Confirmar pago
+            </label>
+          </div>
+        </div>
+        <div class="col-6">
+          <label class="fw-bolder mb-2">Método de pago</label>
+          <p-dropdown styleClass="w-100 p-inputtext-sm" [options]="listMethods" [(ngModel)]="this.data.method"
+            placeholder="Seleccionar categoría" appendTo="body">
+          </p-dropdown>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-12">
+      <div class="d-flex justify-content-center">
+        <button pButton class="p-button-sm p-button-danger mx-2 px-4" (click)="cancel()" label="Cancelar"></button>
+        <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" [disabled]="!this.data.method || !this.confirm"
+          (click)="save()" label="Guardar"></button>
+      </div>
+    </div>
+
+  </div>
+  <!-- <div>
+    <label for="pay_code" class="block mb-3 text-sm font-bold text-gray-900">
+        Código de pago
+    </label>
+    <input type="text" id="pay_code" wire:model="pay_code" placeholder="Código..."
+        class="w-full inline-flex justify-between items-center py-2 px-4 text-sm font-medium text-gray-800 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-blue-300">
+    <x-jet-input-error for="pay_code" />
+</div> -->
+
+
+</div>

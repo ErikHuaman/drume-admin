@@ -10,17 +10,26 @@
 
     <div class="col-12 mb-3">
       <label class="fw-bolder mb-2">Tipo de descuento</label>
-      <p-dropdown styleClass="w-100 p-inputtext-sm" [options]="this.list" optionLabel="name" optionValue="id"
-        [(ngModel)]="data.typeId" [required]="submited && !data.typeId" placeholder="Seleccionar categoría"
-        appendTo="body" (onChange)="changeType($event)">
+      <p-dropdown styleClass="w-100 p-inputtext-sm text-capitalize" panelStyleClass="text-capitalize"
+        [options]="this.list" optionLabel="name" optionValue="id" [(ngModel)]="data.typeId"
+        [required]="submited && !data.typeId" placeholder="Seleccionar categoría" appendTo="body"
+        (onChange)="changeType($event)">
       </p-dropdown>
       <small *ngIf="submited && !data.typeId" class="p-error block">Seleccione un tipo de descuento.</small>
+    </div>
+
+    <div class="col-12 mb-3">
+      <div class="d-flex flex-column align-items-center">
+        <label class="fw-bolder mb-2">Fecha de caducidad <small class="fw-lighter fst-italic">(Opcional)</small></label>
+        <p-calendar styleClass="p-inputtext-sm" dateFormat="yy/mm/dd" placeholder="Año/Mes/Día" inputId="expire"
+          [(ngModel)]="date" [showIcon]="true" appendTo="body"></p-calendar>
+      </div>
     </div>
 
     <div class="col-12 mb-3" [ngSwitch]="data.typeId">
       <div class="row" *ngSwitchCase="1">
         <div class="col-md-6 mb-3">
-          <label class="fw-bolder mb-2">Porcentaje</label>
+          <label class="fw-bolder mb-2">Porcentaje <small class="fw-lighter fst-italic">(0-100)</small></label>
           <input pInputText type="number"
             class="p-inputtext-sm w-100 {{ submited && !data.percent ? 'ng-invalid ng-dirty': ''}}"
             [(ngModel)]="data.percent" />

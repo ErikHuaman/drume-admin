@@ -5,16 +5,16 @@ import {
   ElementRef,
   ViewChild,
 } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+
 import { DomSanitizer } from '@angular/platform-browser';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import {
   DialogService,
   DynamicDialogConfig,
   DynamicDialogRef,
 } from 'primeng/dynamicdialog';
 import { Endpoint } from 'src/app/core/constants/endpoint.constants';
-import { getBase64 } from 'src/app/core/functions';
+import { getBase64 } from 'src/app/core/helpers';
 import {
   CategoryModel,
   CollectionModel,
@@ -23,11 +23,16 @@ import {
 } from 'src/app/core/models';
 import { ApiService } from 'src/app/core/services/api.service';
 import { MessageGlobalService } from 'src/app/core/services/message-global.service';
+import { environment } from 'src/environments/environment';
+
+declare var $: any;
 
 @Component({
   templateUrl: './nuevo-producto.component.html',
 })
 export class NuevoProductoComponent implements OnInit, OnDestroy {
+  mediaUrl = environment.mediaUrl;
+
   editor = ClassicEditor;
 
   configEditor = {
@@ -55,20 +60,30 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
   listColors: ColorModel[] = [];
 
   data = {
+    id: null,
     name: null,
     colorId: null,
     collectionId: null,
     sizes: null,
     price: null,
-    description:
-      '<p>Polera de algodón &nbsp;Tangüis.</p><ul><li>TEJIDO: Franela</li><li>REACTIVO (no destiñe)&nbsp;</li><li>PRELAVADO (no encoge)</li><li>Perchado interior</li></ul><p><i>*IMAGEN Y COLOR&nbsp;REFERENCIAL</i></p>',
+    description: `
+    <p>Polera de algodón &nbsp;Tangüis.</p>
+    <ul>
+      <li>TEJIDO: Franela</li>
+      <li>REACTIVO (no destiñe)&nbsp;</li>
+      <li>PRELAVADO (no encoge)</li>
+      <li>Perchado interior</li>
+    </ul>
+    <p>
+      <i>*IMAGEN Y COLOR&nbsp;REFERENCIAL: Los colores de la imagen puede variar en base a su dispositivo teniendo en cuenta el
+      tono de color y/o a la configuración de pantalla así como los niveles de iluminación.
+      </i>
+    </p>`,
     image: null,
     gallery: [],
   };
 
   color: ColorModel;
-
-  html: string = '';
 
   category: any;
 
@@ -89,13 +104,31 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
 
   @ViewChild('fileGallery', { static: false }) fileGallery: ElementRef;
 
+  isClone: any;
+
   constructor(
     private sanitizer: DomSanitizer,
     private ref: DynamicDialogRef,
     private config: DynamicDialogConfig,
     private apiService: ApiService,
     private msg: MessageGlobalService
-  ) {}
+  ) {
+    if (config.data) {
+      this.isClone = config.data.isClone;
+
+      console.log(config.data);
+      this.data.id = this.isClone ? null : config.data.id;
+      this.data.name = config.data.name;
+      this.data.description = config.data.description;
+      this.data.price = config.data.productColors[0].price;
+      this.previewList = this.isClone
+        ? []
+        : config.data.productColors[0].gallery?.map((i) => this.mediaUrl + i);
+      this.preview = this.isClone
+        ? null
+        : this.mediaUrl + config.data.productColors[0].image;
+    }
+  }
 
   ngOnInit(): void {
     this.getSizes();
@@ -106,25 +139,65 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   getColors() {
-    this.apiService.getAll(Endpoint.colors).subscribe(
-      (res) => {
+    this.msg.loading(true);
+    this.apiService.getAll(Endpoint.colors).subscribe({
+      next: (res) => {
         this.listColors = res.data;
+        this.msg.loading(false);
+        setTimeout(() => {
+          if (this.config.data) {
+            this.data.name = this.data.name.replace(
+              ` ${
+                this.listColors.find(
+                  (i) => i.id == this.config.data.productColors[0].colorId
+                ).name
+              }`,
+              ''
+            );
+
+            this.color = this.isClone
+              ? null
+              : this.listColors.find(
+                  (i) => i.id == this.config.data.productColors[0].colorId
+                );
+            this.data.colorId = this.isClone
+              ? null
+              : this.config.data.productColors[0].colorId;
+          }
+        }, 0);
       },
-      (error) => {
-        this.msg.error('No se pudo cargar las categorías');
-      }
-    );
+      error: (res) => {
+        console.log(res);
+        this.msg.error(res.error.msg);
+        this.msg.loading(false);
+      },
+    });
   }
 
   getCategories() {
-    this.apiService.getAll(Endpoint.categories).subscribe(
-      (res) => {
+    this.msg.loading(true);
+    this.apiService.getAll(Endpoint.categories).subscribe({
+      next: (res) => {
         this.listCategories = res.data;
+        this.msg.loading(false);
+        setTimeout(() => {
+          if (this.config.data) {
+            this.category = this.config.data.collection.categoryId;
+            this.listCollections = this.listCategories.find(
+              (item) => item.id == this.config.data.collection.categoryId
+            ).collections;
+            setTimeout(() => {
+              this.data.collectionId = this.config.data.collection.id;
+            }, 0);
+          }
+        }, 0);
       },
-      (error) => {
-        this.msg.error('No se pudo cargar las categorías');
-      }
-    );
+      error: (res) => {
+        console.log(res);
+        this.msg.error(res.error.msg);
+        this.msg.loading(false);
+      },
+    });
   }
 
   changeColor(event) {
@@ -133,41 +206,49 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
 
   changeCategory(id: number) {
     this.data.collectionId = null;
-    console.log(this.listCategories.find((item) => item.id == id));
     this.listCollections = this.listCategories.find(
       (item) => item.id == id
     ).collections;
   }
 
-  getCollections() {
-    this.apiService.getAll(Endpoint.collections).subscribe(
-      (res) => {
-        this.listCollections = res.data;
-      },
-      (error) => {
-        this.msg.error('No se pudo cargar las colecciones');
-      }
-    );
-  }
-
   getSizes() {
-    this.apiService.getAll(Endpoint.sizes).subscribe(
-      (res) => {
+    this.msg.loading(true);
+    this.apiService.getAll(Endpoint.sizes).subscribe({
+      next: (res) => {
         this.listSizes = res.data;
+        this.msg.loading(false);
+        setTimeout(() => {
+          if (this.config.data) {
+            this.sizes = this.config.data.productColors[0].colorSizes.map(
+              (c) => c.sizeId
+            );
+          }
+        }, 0);
       },
-      (error) => {
-        this.msg.error('No se pudo cargar las tallas');
-      }
-    );
+      error: (res) => {
+        console.log(res);
+        this.msg.error(res.error.msg);
+        this.msg.loading(false);
+      },
+    });
   }
 
   captureImage(event) {
+    const files: FileList = event.target.files || event.dataTransfer.files;
+    const maxFileSize = 1 * 1024 * 1024; // 10 MB
+    if (files[0] && files[0].size > maxFileSize) {
+      this.fileImage.nativeElement.value = '';
+      this.msg.warn('El tamaño del archivo supera el límite máximo.');
+      return;
+    }
+
     this.preview = null;
     this.image = null;
-    getBase64(event.target.files[0], this.sanitizer).then(
+
+    getBase64(files[0], this.sanitizer).then(
       (data: { blob: any; image: any; base: string }) => {
         this.preview = data.base;
-        this.image = event.target.files[0];
+        this.image = files[0];
         this.fileImage.nativeElement.value = '';
         this.msg.success('Imagen Cargada');
       }
@@ -175,6 +256,14 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
   }
 
   captureGallery(event) {
+    const files: FileList = event.target.files || event.dataTransfer.files;
+    const maxFileSize = 1 * 1024 * 1024; // 10 MB
+    if (files[0] && files[0].size > maxFileSize) {
+      this.fileGallery.nativeElement.value = '';
+      this.msg.warn('El tamaño del archivo supera el límite máximo.');
+      return;
+    }
+
     getBase64(event.target.files[0], this.sanitizer).then(
       (data: { blob: any; image: any; base: string }) => {
         this.previewList.push(data.base);
@@ -190,10 +279,8 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
     this.gallery.splice(index, 1);
   }
 
-  save() {
-    this.submited = true;
-
-    if (
+  get invalid(): boolean {
+    return (
       !this.data.name ||
       !this.data.description ||
       !this.data.colorId ||
@@ -201,7 +288,14 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
       !this.data.price ||
       !this.sizes ||
       this.sizes.length == 0
-    ) {
+    );
+  }
+
+  save() {
+    this.submited = true;
+
+    if (this.invalid) {
+      this.msg.warn('Hay campos incompletos');
       return;
     }
 
@@ -209,16 +303,44 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
     this.data.gallery = this.gallery;
     this.data.sizes = JSON.stringify(this.sizes);
 
-    this.apiService.save(this.data, Endpoint.products, true).subscribe(
-      (res) => {
-        this.msg.success(res.msg);
-        this.ref.close(true);
-      },
-      (error) => {
-        this.msg.error(error.msg);
-        console.log(error);
-      }
-    );
+    if (this.data.id) {
+      this.msg.loading(true);
+      this.apiService
+        .edit(
+          {
+            ...this.data,
+            gallerylist: this.previewList.filter((i) => !i.startsWith('data:')),
+          },
+          Endpoint.products,
+          true
+        )
+        .subscribe({
+          next: (res) => {
+            this.msg.success(res.msg);
+            this.msg.loading(false);
+            this.ref.close(true);
+          },
+          error: (res) => {
+            console.log(res);
+            this.msg.error(res.error.msg);
+            this.msg.loading(false);
+          },
+        });
+    } else {
+      this.msg.loading(true);
+      this.apiService.save(this.data, Endpoint.products, true).subscribe({
+        next: (res) => {
+          this.msg.success(res.msg);
+          this.msg.loading(false);
+          this.ref.close(true);
+        },
+        error: (res) => {
+          console.log(res);
+          this.msg.error(res.error.msg);
+          this.msg.loading(false);
+        },
+      });
+    }
   }
 
   cancel() {

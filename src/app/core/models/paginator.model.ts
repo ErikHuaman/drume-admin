@@ -1,5 +1,5 @@
 export class PaginadorValue {
-  page: number;
-  rows: number;
-  totalRecords: number;
+  page: number = 1;
+  rows: number = 10;
+  totalRecords: number = 0;
 }

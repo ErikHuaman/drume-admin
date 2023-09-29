@@ -1,7 +1,7 @@
 <div class="container-fluid py-2 py-md-2">
 
   <div class="d-flex justify-content-between mb-4">
-    <div>
+    <div class="d-flex align-items-center   ">
       <span class="p-input-icon-right">
         <i class="fas fa-times pointer" (click)="limpiar()"></i>
         <input pInputText type="text" class="p-inputtext-sm rounded-0 rounded-start" placeholder="Nombre"
@@ -10,9 +10,11 @@
       <button pButton class="p-button-sm btn-gray-700 rounded-0 rounded-end" icon="fas fa-magnifying-glass"
         (click)="buscar()"></button>
     </div>
-    <div>
+    <div class="d-flex flex-column flex-sm-row ">
+      <button pButton class="p-button-sm btn-gray-700 mb-2 mb-sm-0 me-sm-2" (click)="addProducts()"
+        label="Vincular Productos"></button>
       <button pButton class="p-button-sm btn-gray-700" icon="fas fa-plus" (click)="newRegister()"
-        label="Nueva Oferta"></button>
+        label="Nuevo Descuento"></button>
     </div>
   </div>
 
@@ -22,10 +24,11 @@
     <ng-template pTemplate="header">
       <tr>
         <th class="text-center" style="width: 6rem !important;">Id</th>
-        <th class="text-center" style="width: 10rem !important;">Tipo de descuento</th>
         <th class="text-center">nombre de la oferta</th>
+        <th class="text-center" style="width: 10rem !important;">Tipo de descuento</th>
         <th class="text-center">código</th>
         <th class="text-center">descuento</th>
+        <th class="text-center">Caducidad</th>
         <th class="text-center" style="width: 8rem !important;">Estado</th>
         <th class="text-center" style="width: 10rem !important;">Opciones</th>
       </tr>
@@ -34,25 +37,24 @@
     <ng-template pTemplate="body" let-item>
       <tr>
         <td class="text-center">{{ item.id }}</td>
-        <td class="text-center text-uppercase">{{ item.type.name }}</td>
         <td class="text-center text-lg-start">{{ item.name }}</td>
+        <td class="text-center text-uppercase">{{ item.type.name }}</td>
         <td class="text-center">{{ item.code }}</td>
         <td class="text-center">
           {{ (item.percent | percent ) ?? (item.fixed | currency: 'S/') ?? ( item.quantity + 'x' + item.quantityPay ) }}
         </td>
+        <td class="text-center">{{ item.expire }}</td>
         <td class="text-center">
-          <button *ngIf="item.active" pButton pRipple type="button" label="ACTIVO"
-            class="p-button-sm p-button-rounded p-button-success" (click)="item.active = !item.active"></button>
-          <button *ngIf="!item.active" pButton pRipple type="button" label="INACTIVO"
-            class="p-button-sm p-button-rounded p-button-warning" (click)="item.active = !item.active"></button>
-
+          <button type="button" class="btn p-button-sm rounded-4 mx-auto"
+            [ngClass]="item.active ? 'btn-success' : 'btn-warn'"
+            (click)="this.changeStatus(item)">{{item.active ? 'ACTIVO' : 'INACTIVO' }}</button>
         </td>
         <td class="text-center">
           <div class="d-flex justify-content-center">
-            <button pButton pRipple icon="pi pi-pencil" class="p-button-sm p-button-rounded p-button-success mx-1"
-              (click)="verEdit(item)"></button>
-            <button pButton pRipple icon="pi pi-trash" class="p-button-sm p-button-rounded p-button-danger mx-1"
-              (click)="confirm(item.id)"></button>
+            <button pButton pRipple icon="pi pi-pencil" class="btn btn-circle-xs p-button-success mx-1"
+              (click)="editItem(item)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="btn btn-circle-xs p-button-danger mx-1"
+              (click)="this.deleteItem(item)"></button>
           </div>
         </td>
       </tr>

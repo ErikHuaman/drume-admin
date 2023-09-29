@@ -6,12 +6,18 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { AjustesComponent } from './views/ajustes/ajustes.component';
 import { ColeccionesComponent } from './views/colecciones/colecciones.component';
 import { DashboardComponent } from './views/dashboard/dashboard.component';
-import { EnviadosComponent } from './views/enviados/enviados.component';
+import { EnviadosComponent } from './views/pedidos/enviados/enviados.component';
 import { OfertasComponent } from './views/ofertas/ofertas.component';
-import { PedidosComponent } from './views/pedidos/pedidos.component';
-import { PendientesComponent } from './views/pendientes/pendientes.component';
+import { ConfirmadosComponent } from './views/pedidos/confirmados/confirmados.component';
+import { PendientesComponent } from './views/pedidos/pendientes/pendientes.component';
 import { ProductosComponent } from './views/productos/productos.component';
-import { VentasComponent } from './views/ventas/ventas.component';
+import { VentasComponent } from './views/pedidos/ventas/ventas.component';
+import { BannersComponent } from './views/ajustes/banners/banners.component';
+import { CarouselsComponent } from './views/ajustes/carousels/carousels.component';
+import { ColorsComponent } from './views/ajustes/colors/colors.component';
+import { EmpresaComponent } from './views/ajustes/empresa/empresa.component';
+import { CanceladosComponent } from './views/pedidos/cancelados/cancelados.component';
+import { MultimediaComponent } from './views/ajustes/multimedia/multimedia.component';
 
 const routes: Routes = [
   {
@@ -35,28 +41,40 @@ const routes: Routes = [
         path: 'pendientes',
         component: PendientesComponent,
         data: {
-          title: 'Pendientes',
+          title: 'Pedidos Pendientes',
         },
       },
       {
         path: 'pedidos',
-        component: PedidosComponent,
+        redirectTo: 'pedidos/confirmados',
+        pathMatch: 'full',
+      },
+      {
+        path: 'pedidos/confirmados',
+        component: ConfirmadosComponent,
         data: {
-          title: 'Pedidos',
+          title: 'Pedidos Confirmados',
         },
       },
       {
-        path: 'enviados',
+        path: 'pedidos/listos',
         component: EnviadosComponent,
         data: {
-          title: 'Enviados',
+          title: 'Pedidos Listos',
         },
       },
       {
-        path: 'ventas',
+        path: 'pedidos/completados',
         component: VentasComponent,
         data: {
-          title: 'Ventas',
+          title: 'Ventas Completadas',
+        },
+      },
+      {
+        path: 'pedidos/cancelados',
+        component: CanceladosComponent,
+        data: {
+          title: 'Pedidos Cancelados',
         },
       },
       {
@@ -74,17 +92,50 @@ const routes: Routes = [
         },
       },
       {
-        path: 'ofertas',
+        path: 'descuentos',
         component: OfertasComponent,
         data: {
-          title: 'Ofertas',
+          title: 'Descuentos',
         },
       },
       {
         path: 'ajustes',
-        component: AjustesComponent,
+        redirectTo: 'ajustes/empresa',
+        pathMatch: 'full',
+      },
+      {
+        path: 'ajustes/empresa',
+        component: EmpresaComponent,
         data: {
-          title: 'Ajustes',
+          title: 'Ajustes - Empresa',
+        },
+      },
+      {
+        path: 'ajustes/banners',
+        component: BannersComponent,
+        data: {
+          title: 'Ajustes - Banners',
+        },
+      },
+      {
+        path: 'ajustes/carousels',
+        component: CarouselsComponent,
+        data: {
+          title: 'Ajustes - Carruseles',
+        },
+      },
+      {
+        path: 'ajustes/colores',
+        component: ColorsComponent,
+        data: {
+          title: 'Ajustes - Colores',
+        },
+      },
+      {
+        path: 'ajustes/upload',
+        component: MultimediaComponent,
+        data: {
+          title: 'Biblioteca de medios',
         },
       },
     ],

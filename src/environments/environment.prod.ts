@@ -1,6 +1,5 @@
 export const environment = {
   production: true,
-  protocol: 'http',
-  host: 'localhost',
-  port: '3000',
+  apiUrl: 'https://drume.com.pe/api/',
+  mediaUrl: 'https://drume.com.pe/',
 };

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { HeaderService } from 'src/app/core/services/header.service';
+import { MessageGlobalService } from 'src/app/core/services/message-global.service';
 
 @Component({
   selector: 'app-dashboard',
@@ -11,7 +12,8 @@ export class DashboardComponent implements OnInit {
   constructor(
     private titleService: Title,
     public _h: HeaderService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private msg: MessageGlobalService
   ) {
     _h.setTitle(route.snapshot.data['title']);
     const title = route.snapshot.data['title']

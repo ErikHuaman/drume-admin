@@ -18,8 +18,8 @@ const routes: Route[] = [
     component: LoginComponent,
   },
   { path: 'auth/register', component: RegisterComponent },
-  { path: 'auth/forgot-password', component: ForgotPasswordComponent },
-  { path: 'auth/verify-email', component: VerifyEmailComponent },
+  // { path: 'auth/forgot-password', component: ForgotPasswordComponent },
+  // { path: 'auth/verify-email', component: VerifyEmailComponent },
 ];
 
 @NgModule({

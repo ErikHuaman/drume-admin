@@ -24,11 +24,7 @@ export class PaginatorComponent implements OnInit, ControlValueAccessor {
 
   @Output() change = new EventEmitter<PaginadorValue>();
 
-  paginadorValue: PaginadorValue = {
-    page: 1,
-    rows: 10,
-    totalRecords: 0,
-  };
+  paginadorValue: PaginadorValue = new PaginadorValue();
 
   isDisabled = false;
 

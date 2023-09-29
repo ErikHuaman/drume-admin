@@ -1,0 +1,76 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Nombre del producto</label>
+      <input pInputText type="text" class="p-inputtext-sm w-100" [(ngModel)]="this.name" readonly />
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2 me-4">Stock del producto</label>
+      <p-table styleClass="w-100 p-datatable-sm p-datatable-gridlines p-datatable-striped table-thead-dark"
+        [responsive]="true" responsiveLayout="scroll" [value]="this.data">
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th class="text-center" style="width: 4rem !important;">Talla</th>
+            <th class="text-center" style="width: 4rem !important;">Stock</th>
+            <th class="text-center" style="width: 4rem !important;"></th>
+            <th class="text-center" style="width: 10rem !important;">Opciones</th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-item>
+          <tr>
+            <td class="text-center">{{ item.name }}</td>
+            <td class="text-center">{{ item.stock }}</td>
+            <td class="text-center">
+              <input pInputText type="text" class="p-inputtext-sm rectangle text-center" [(ngModel)]="item.value"
+                [disabled]="!item.modify" (keypress)="keyPressNumbers($event)" />
+            </td>
+            <td class="text-center" style="width: 4rem !important;">
+              <div class="d-flex justify-content-center">
+                <ng-container *ngIf="item.modify">
+                  <button class="btn btn-circle-sm btn-outlined mx-1" [ngClass]="{'btn-dark text-white': !item.add}"
+                    pTooltip="Quitar" tooltipPosition="top" (click)="item.add = false">
+                    <i class="fas fa-minus"></i>
+                  </button>
+                  <button class="btn btn-circle-sm btn-outlined mx-1" [ngClass]="{'btn-dark text-white': item.add}"
+                    pTooltip="Añadir" tooltipPosition="top" (click)="item.add = true;">
+                    <i class="fas fa-plus"></i>
+                  </button>
+                  <button class="btn  btn-circle-sm btn-danger p-2" pTooltip="Cancelar" tooltipPosition="top"
+                    (click)="item.modify = false; item.value = 0">
+                    <i class="fas fa-xmark"></i>
+                  </button>
+                </ng-container>
+                <ng-container *ngIf="!item.modify">
+                  <button class="btn btn-sm btn-dark p-2" (click)="item.modify = true">
+                    Modificar
+                  </button>
+                </ng-container>
+
+              </div>
+            </td>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="emptymessage">
+          <tr>
+            <td class="text-center" colspan="100">
+              No se encontró resultados
+            </td>
+          </tr>
+        </ng-template>
+
+      </p-table>
+    </div>
+
+    <div class="d-flex justify-content-center">
+      <button pButton class="p-button-sm p-button-danger mx-2 px-4" (click)="cancel()" label="Cancelar"></button>
+      <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" [disabled]="this.invalid" (click)="save()"
+        label="Guardar"></button>
+    </div>
+
+  </div>
+</div>

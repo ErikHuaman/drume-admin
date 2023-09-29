@@ -1,5 +1,5 @@
 import { CollectionModel } from './collection.model';
-import { ProductColorModel } from './product_color.model';
+import { ProductColorModel } from './productColor.model';
 
 export class ProductModel {
   id: number;
@@ -11,5 +11,5 @@ export class ProductModel {
   price?: number = 0;
   discount?: number;
   collection: CollectionModel;
-  product_colors: ProductColorModel[];
+  productColors: ProductColorModel[];
 }
