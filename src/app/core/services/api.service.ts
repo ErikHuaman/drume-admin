@@ -15,13 +15,12 @@ export class ApiService {
   constructor(
     private http: HttpClient,
     private route: ActivatedRoute,
-    private authService: AuthService
   ) {}
 
   public getAll(endpoint: string): Observable<any> {
     let options = {
       headers: new HttpHeaders({
-        authorization: `Bearer ${this.authService.getToken()}`,
+        'Content-Type': 'application/json',
       }),
     };
     return this.http.get(`${this.apiUrl}adm/${endpoint}`, options);
@@ -39,7 +38,6 @@ export class ApiService {
       options = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          authorization: `Bearer ${this.authService.getToken()}`,
         }),
       };
 
@@ -48,7 +46,6 @@ export class ApiService {
       options = {
         headers: new HttpHeaders({
           Accept: 'application/json',
-          authorization: `Bearer ${this.authService.getToken()}`,
         }),
       };
 
@@ -70,7 +67,6 @@ export class ApiService {
       options = {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
-          authorization: `Bearer ${this.authService.getToken()}`,
         }),
       };
 
@@ -79,7 +75,6 @@ export class ApiService {
       options = {
         headers: new HttpHeaders({
           Accept: 'application/json',
-          authorization: `Bearer ${this.authService.getToken()}`,
         }),
       };
 
@@ -93,7 +88,6 @@ export class ApiService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: `Bearer ${this.authService.getToken()}`,
       }),
     };
 
@@ -107,7 +101,6 @@ export class ApiService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: `Bearer ${this.authService.getToken()}`,
       }),
     };
 
@@ -122,7 +115,6 @@ export class ApiService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: `Bearer ${this.authService.getToken()}`,
       }),
     };
 
@@ -133,7 +125,6 @@ export class ApiService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: `Bearer ${this.authService.getToken()}`,
       }),
     };
 
@@ -144,7 +135,6 @@ export class ApiService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: `Bearer ${this.authService.getToken()}`,
       }),
     };
 
@@ -155,7 +145,6 @@ export class ApiService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: `Bearer ${this.authService.getToken()}`,
       }),
     };
 
@@ -193,7 +182,6 @@ export class ApiService {
     let options = {
       headers: new HttpHeaders({
         'Content-Type': 'application/json',
-        authorization: `Bearer ${this.authService.getToken()}`,
       }),
     };
 

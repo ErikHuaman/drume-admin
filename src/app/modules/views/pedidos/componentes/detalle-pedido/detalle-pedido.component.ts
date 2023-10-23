@@ -70,11 +70,11 @@ export class DetallePedidoComponent implements OnInit {
       return;
     }
 
-    this.msg.loading(true);
+    
     this.apiService.orderStatus(this.data).subscribe({
       next: (res) => {
         this.msg.success(res.msg);
-        this.msg.loading(false);
+        
         if (this.data.state == 3) {
           this.order.stateId = 3;
           this.getButtonLabel();
@@ -85,7 +85,7 @@ export class DetallePedidoComponent implements OnInit {
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }

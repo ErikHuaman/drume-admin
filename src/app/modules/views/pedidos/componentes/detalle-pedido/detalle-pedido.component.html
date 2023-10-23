@@ -23,15 +23,18 @@
             <div class="col-2">
               <img loading="lazy" class="w-100" [src]="this.mediaUrl + item.image" [alt]="item.name">
             </div>
-            <div class="col-6">
-              <p class="mb-2 fw-bolder text-capitalize">
+            <div class="col-8">
+              <p class="mb-2 fw-bolder text-uppercase border-bottom">
+                {{ item.colorSize?.productColor?.product?.collection?.category?.name }}
+              </p>
+              <p class="m-0 fw-bolder text-capitalize">
                 {{ item.name }}
               </p>
-              <p class="mb-2 text-capitalize">
+              <p class="m-0 text-capitalize">
                 Cantidad: {{ item.quantity }}
               </p>
             </div>
-            <div class="col-4">
+            <div class="col-2">
               <div class="d-flex justify-content-end align-items-center pt-1 h-100">
                 <div class="d-flex flex-column">
                   <div class="d-flex mb-1">
@@ -69,13 +72,16 @@
 
       <div class="p-2">
         <p class="m-0">
-          {{ this.order.info.name }}
+          {{ this.order.info.name }} {{ this.order.info.lastName }}
         </p>
         <p class="m-0">
-          {{ this.order.info.dni }}
+          <small><strong>DNI:</strong></small> {{ this.order.info.dni }}
         </p>
         <p class="m-0">
-          {{ this.order.info.email }}
+          <small><strong>CELULAR:</strong></small> {{ this.order.info.phone }}
+        </p>
+        <p class="m-0">
+          <strong>{{ this.order.info.email }}</strong>
         </p>
         <ng-container *ngIf="this.order.shipMethod == 'delivery'">
           <p class="m-0">

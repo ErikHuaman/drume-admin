@@ -57,15 +57,15 @@ export class NuevaColeccionComponent implements OnInit {
   }
 
   getCategories() {
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.categories).subscribe({
       next: (res) => {
         this.listCategories = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -106,29 +106,29 @@ export class NuevaColeccionComponent implements OnInit {
     this.data.image = this.image;
 
     if (!this.isEdit) {
-      this.msg.loading(true);
+      
       this.apiService.save(this.data, Endpoint.collections, true).subscribe({
         next: (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         error: (res) => {
           this.msg.error(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     } else {
-      this.msg.loading(true);
+      
       this.apiService.edit(this.data, Endpoint.collections, true).subscribe({
         next: (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         error: (res) => {
           this.msg.error(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     }

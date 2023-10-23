@@ -44,16 +44,16 @@ export class ConfirmarPedidoComponent implements OnInit {
     if (!this.data.method || !this.confirm) {
       return;
     }
-    this.msg.loading(true);
+    
     this.apiService.orderStatus(this.data).subscribe({
       next: (res) => {
         this.msg.success(res.msg);
         this.ref.close(true);
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }

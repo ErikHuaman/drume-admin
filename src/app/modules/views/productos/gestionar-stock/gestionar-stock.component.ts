@@ -63,7 +63,7 @@ export class GestionarStockComponent implements OnInit {
     if (this.invalid) {
       return;
     }
-    this.msg.loading(true);
+    
     this.apiService
       .stock(
         this.data.map((i) => {
@@ -76,12 +76,12 @@ export class GestionarStockComponent implements OnInit {
       .subscribe({
         next: (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         error: (res) => {
           this.msg.error(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
   }

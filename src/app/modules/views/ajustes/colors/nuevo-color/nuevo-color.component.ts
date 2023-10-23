@@ -47,29 +47,29 @@ export class NuevoColorComponent implements OnInit {
     console.log(this.data);
 
     if (!this.isEdit) {
-      this.msg.loading(true);
+      
       this.apiService.save(this.data, Endpoint.colors).subscribe(
         (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         (error) => {
           this.msg.error(error.msg);
-          this.msg.loading(false);
+          
         }
       );
     } else {
-      this.msg.loading(true);
+      
       this.apiService.edit(this.data, Endpoint.colors).subscribe(
         (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         (error) => {
           this.msg.error(error.msg);
-          this.msg.loading(false);
+          
         }
       );
     }

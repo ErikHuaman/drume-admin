@@ -68,16 +68,16 @@ export class ColeccionesComponent implements OnInit {
     var rows = this.paginadorValue.rows;
     var search = this.nameSearch ? `search=${this.nameSearch}&` : '';
     var query = `?${search}page=${page}&size=${rows}`;
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.collections + query).subscribe({
       next: (res) => {
         this.setPaginadorValue(page, rows, res.total);
         this.data = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -118,7 +118,7 @@ export class ColeccionesComponent implements OnInit {
       accept: () => {
         this.apiService.changeStatus(item.id, Endpoint.collections).subscribe({
           next: (res) => {
-            this.msg.success(res.msg);
+            this.msg.success(`¡${ !item.active ? 'ACTIVADO' : 'DESACTIVADO' } con éxito!`);
             this.getData();
           },
           error: (res) => {

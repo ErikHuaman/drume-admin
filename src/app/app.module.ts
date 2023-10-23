@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { CoreModule } from './core/core.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { ModulesModule } from './modules/modules.module';
+import { TokenInterceptorProvider } from './core/interceptors/token.interceptor';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +18,10 @@ import { ModulesModule } from './modules/modules.module';
     AngularSvgIconModule.forRoot(),
     AppRoutingModule,
   ],
-  providers: [Title],
+  providers: [
+    TokenInterceptorProvider,
+    Title
+  ],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

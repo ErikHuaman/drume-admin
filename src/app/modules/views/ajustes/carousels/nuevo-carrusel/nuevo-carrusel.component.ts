@@ -100,29 +100,29 @@ export class NuevoCarruselComponent implements OnInit {
     console.log(this.data);
 
     if (!this.isEdit) {
-      this.msg.loading(true);
+      
       this.apiService.save(this.data, Endpoint.carousels, true).subscribe({
         next: (res) => {
           this.msg.success(res.msg);
           this.ref.close(true);
-          this.msg.loading(false);
+          
         },
         error: (e) => {
           this.msg.error(e.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     } else {
-      this.msg.loading(true);
+      
       this.apiService.edit(this.data, Endpoint.carousels, true).subscribe({
         next: (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         error: (e) => {
           this.msg.error(e.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     }

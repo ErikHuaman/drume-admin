@@ -70,16 +70,16 @@ export class ConfirmadosComponent implements OnInit {
     var rows = this.paginadorValue.rows;
     var search = this.nameSearch ? `search=${this.nameSearch}&` : '';
     var query = `?${search}page=${page}&size=${rows}&state=2,3`;
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.orders + query).subscribe({
       next: (res) => {
         this.setPaginadorValue(page, rows, res.total);
         this.data = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -101,16 +101,16 @@ export class ConfirmadosComponent implements OnInit {
       header: 'Eliminar',
       message: `¿Estás seguro de eliminar el producto ${item.name}?`,
       accept: () => {
-        this.msg.loading(true);
+        
         this.apiService.delete(item.id, Endpoint.products).subscribe({
           next: (res) => {
             this.msg.success(res.msg);
             this.getData();
-            this.msg.loading(false);
+            
           },
           error: (res) => {
             this.msg.success(res.error.msg);
-            this.msg.loading(false);
+            
           },
         });
       },

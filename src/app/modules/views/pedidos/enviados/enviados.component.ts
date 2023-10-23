@@ -69,16 +69,16 @@ export class EnviadosComponent implements OnInit {
     var rows = this.paginadorValue.rows;
     var search = this.nameSearch ? `search=${this.nameSearch}&` : '';
     var query = `?${search}page=${page}&size=${rows}&state=4,5`;
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.orders + query).subscribe({
       next: (res) => {
         this.setPaginadorValue(page, rows, res.total);
         this.data = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -91,7 +91,7 @@ export class EnviadosComponent implements OnInit {
         4
       )} fue completado con éxito?`,
       accept: () => {
-        this.msg.loading(true);
+        
         this.apiService
           .orderStatus({
             id: item.id,
@@ -101,11 +101,11 @@ export class EnviadosComponent implements OnInit {
             next: (res) => {
               this.msg.success(res.msg);
               this.getData();
-              this.msg.loading(false);
+              
             },
             error: (res) => {
               this.msg.error(res.error.msg);
-              this.msg.loading(false);
+              
             },
           });
       },

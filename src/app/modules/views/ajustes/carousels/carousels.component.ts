@@ -68,16 +68,16 @@ export class CarouselsComponent implements OnInit {
     var rows = this.paginadorValue.rows;
     var search = this.nameSearch ? `search=${this.nameSearch}&` : '';
     var query = `?${search}page=${page}&size=${rows}`;
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.carousels + query).subscribe({
       next: (res) => {
         this.setPaginadorValue(page, rows, res.total);
         this.data = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -116,16 +116,16 @@ export class CarouselsComponent implements OnInit {
         !item.active ? 'ACTIVAR' : 'DESACTIVAR'
       } el carrusel con id: ${item.id}?`,
       accept: () => {
-        this.msg.loading(true);
+        
         this.apiService.changeStatus(item.id, Endpoint.carousels).subscribe({
           next: (res) => {
-            this.msg.success(res.msg);
+            this.msg.success(`¡${ !item.active ? 'ACTIVADO' : 'DESACTIVADO' } con éxito!`);this.msg.success(res.msg);
             this.getData();
-            this.msg.loading(false);
+            
           },
           error: (res) => {
             this.msg.success(res.error.msg);
-            this.msg.loading(false);
+            
           },
         });
       },
@@ -137,16 +137,16 @@ export class CarouselsComponent implements OnInit {
       header: 'Eliminar',
       message: `¿Estás seguro de eliminar el carrusel con id: ${item.id}?`,
       accept: () => {
-        this.msg.loading(true);
+        
         this.apiService.delete(item.id, Endpoint.carousels).subscribe({
           next: (res) => {
             this.msg.success(res.msg);
             this.getData();
-            this.msg.loading(false);
+            
           },
           error: (res) => {
             this.msg.success(res.error.msg);
-            this.msg.loading(false);
+            
           },
         });
       },

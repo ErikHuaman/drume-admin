@@ -48,15 +48,15 @@ export class NuevaOfertaComponent implements OnInit {
   }
 
   getTypes() {
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.types).subscribe({
       next: (res) => {
         this.list = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -107,29 +107,29 @@ export class NuevaOfertaComponent implements OnInit {
     this.data.expire = formatDate(this.date);
 
     if (!this.isEdit) {
-      this.msg.loading(true);
+      
       this.apiService.save(this.data, Endpoint.discounts).subscribe({
         next: (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         error: (res) => {
           console.log(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     } else {
-      this.msg.loading(true);
+      
       this.apiService.edit(this.data, Endpoint.discounts).subscribe({
         next: (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         error: (res) => {
           console.log(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     }

@@ -103,18 +103,18 @@ export class MultimediaComponent implements OnInit {
     }
 
     if (files[0]) {
-      this.msg.loading(true);
+      
       this.apiService
         .save({ image: files[0] }, Endpoint.multimedia, true)
         .subscribe({
           next: (res) => {
             this.getData();
             this.msg.success('Medio creado con éxito');
-            this.msg.loading(false);
+            
           },
           error: (res) => {
             this.msg.success('No se pudo completar la carga');
-            this.msg.loading(false);
+            
           },
         });
     }
@@ -170,16 +170,16 @@ export class MultimediaComponent implements OnInit {
       header: 'Eliminar',
       message: '¿Estás seguro de eliminar el medio seleccionado?',
       accept: () => {
-        this.msg.loading(true);
+        
         this.apiService.delete(id, Endpoint.multimedia).subscribe({
           next: (res) => {
             this.getData();
             this.msg.success('Eliminado con éxito');
-            this.msg.loading(false);
+            
           },
           error: (res) => {
             this.msg.error('No se pudo eliminar');
-            this.msg.loading(false);
+            
           },
         });
       },

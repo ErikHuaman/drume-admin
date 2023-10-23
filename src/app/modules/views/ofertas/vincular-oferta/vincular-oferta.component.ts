@@ -127,29 +127,29 @@ export class VincularOfertaComponent implements OnInit {
   }
 
   getTypes() {
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.types).subscribe({
       next: (res) => {
         this.listTypes = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
 
   getCategories() {
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.categories).subscribe({
       next: (res) => {
         this.listCategories = res.data;
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -165,19 +165,19 @@ export class VincularOfertaComponent implements OnInit {
   changeCollection(id: number) {
     this.listProducts = [];
     this.availableProducts = [];
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.products + `?col=${id}`).subscribe({
       next: (res) => {
         this.listProducts = res.data;
         this.availableProducts = this.listProducts;
-        this.msg.loading(false);
+        
         if (this.discount) {
           this.changeDiscount(this.discount.id);
         }
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -206,12 +206,12 @@ export class VincularOfertaComponent implements OnInit {
   drop(event) {
     if (this.draggedProduct) {
       const id = this.draggedProduct.id;
-      this.msg.loading(true);
+      
       this.apiService
         .discount({ id: id, discountId: this.discount.id })
         .subscribe({
           next: (res) => {
-            this.msg.loading(false);
+            
             this.listProducts.find(
               (i) => i.id == id
             ).productColors[0].discountId = this.discount.id;
@@ -222,7 +222,7 @@ export class VincularOfertaComponent implements OnInit {
           },
           error: (res) => {
             this.msg.error(res.error.msg);
-            this.msg.loading(false);
+            
           },
         });
       let draggedProductIndex = this.findIndex(this.draggedProduct);
@@ -256,7 +256,7 @@ export class VincularOfertaComponent implements OnInit {
   dropInverse(event) {
     if (this.draggedProductInverse) {
       const id = this.draggedProductInverse.id;
-      this.msg.loading(true);
+      
       this.apiService.discount({ id: id, discountId: null }).subscribe({
         next: (res) => {
           this.listProducts.find(
@@ -265,11 +265,11 @@ export class VincularOfertaComponent implements OnInit {
           this.listProducts.find((i) => i.id == id).productColors[0].discount =
             null;
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
         },
         error: (res) => {
           this.msg.error(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
       let draggedProductIndex = this.findIndexInverse(

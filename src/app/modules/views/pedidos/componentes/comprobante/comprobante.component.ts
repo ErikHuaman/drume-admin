@@ -18,15 +18,15 @@ export class ComprobanteComponent implements OnInit {
   ngOnInit(): void {}
 
   generarComprobante() {
-    this.msg.loading(true);
+    
     this.apiService.getComprobante(this.hash).subscribe({
       next: (blob: Blob) => {
-        this.msg.loading(false);
+        
         saveAs(blob, 'comprobante_pago.pdf');
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }

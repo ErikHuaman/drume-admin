@@ -21,7 +21,9 @@ export class HeaderComponent implements OnInit {
     this._h.setSidebar();
   }
 
-  toMail() {}
+  toMail() {
+    window.open(environment.mailUrl, '_blank');
+  }
 
   toShop() {
     window.open(environment.mediaUrl, '_blank');

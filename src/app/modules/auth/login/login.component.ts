@@ -38,16 +38,16 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     if (this.form.valid) {
-      this.msg.loading(true);
+      
       this.authService.login(this.form.value).subscribe({
         next: (res) => {
           this.authService.setCurrentUser(res.data);
-          this.msg.loading(false);
+          
         },
         error: (res) => {
           console.log(res);
           this.msg.error(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     }

@@ -139,11 +139,11 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {}
 
   getColors() {
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.colors).subscribe({
       next: (res) => {
         this.listColors = res.data;
-        this.msg.loading(false);
+        
         setTimeout(() => {
           if (this.config.data) {
             this.data.name = this.data.name.replace(
@@ -169,17 +169,17 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
       error: (res) => {
         console.log(res);
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
 
   getCategories() {
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.categories).subscribe({
       next: (res) => {
         this.listCategories = res.data;
-        this.msg.loading(false);
+        
         setTimeout(() => {
           if (this.config.data) {
             this.category = this.config.data.collection.categoryId;
@@ -195,7 +195,7 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
       error: (res) => {
         console.log(res);
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -212,11 +212,11 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
   }
 
   getSizes() {
-    this.msg.loading(true);
+    
     this.apiService.getAll(Endpoint.sizes).subscribe({
       next: (res) => {
         this.listSizes = res.data;
-        this.msg.loading(false);
+        
         setTimeout(() => {
           if (this.config.data) {
             this.sizes = this.config.data.productColors[0].colorSizes.map(
@@ -228,7 +228,7 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
       error: (res) => {
         console.log(res);
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
@@ -304,7 +304,7 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
     this.data.sizes = JSON.stringify(this.sizes);
 
     if (this.data.id) {
-      this.msg.loading(true);
+      
       this.apiService
         .edit(
           {
@@ -317,27 +317,27 @@ export class NuevoProductoComponent implements OnInit, OnDestroy {
         .subscribe({
           next: (res) => {
             this.msg.success(res.msg);
-            this.msg.loading(false);
+            
             this.ref.close(true);
           },
           error: (res) => {
             console.log(res);
             this.msg.error(res.error.msg);
-            this.msg.loading(false);
+            
           },
         });
     } else {
-      this.msg.loading(true);
+      
       this.apiService.save(this.data, Endpoint.products, true).subscribe({
         next: (res) => {
           this.msg.success(res.msg);
-          this.msg.loading(false);
+          
           this.ref.close(true);
         },
         error: (res) => {
           console.log(res);
           this.msg.error(res.error.msg);
-          this.msg.loading(false);
+          
         },
       });
     }

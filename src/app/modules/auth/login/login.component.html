@@ -1,8 +1,18 @@
-<div class="drume-container min-vh-100 d-flex align-items-center justify-content-center py-4">
+<div class="bg-gray-200 min-vh-100 d-flex align-items-center justify-content-center py-4">
   <div class="login-box mb-2">
     <!-- /.login-logo -->
     <div class="card">
       <div class="card-body p-4">
+
+        <div class="row">
+          <div class="col-12 pb-1">
+            <div class="d-flex justify-content-center">
+              <a routerLink="/">
+                <svg-icon name="logo" [svgStyle]="{ 'height': '4rem', fill: '#000' }"></svg-icon>
+              </a>
+            </div>
+          </div>
+        </div>
 
         <form [formGroup]="form" class="d-grid gap-3">
 
@@ -63,11 +73,11 @@
                   </label>
                 </div>
               </div>
-              <div class="col-6">
+              <!-- <div class="col-6">
                 <p class="text-end m-0 pointer underline" routerLink="/auth/forgot-password">
                   ¿Olvidaste tu contraseña?
                 </p>
-              </div>
+              </div> -->
             </div>
             <div>
               <button class="p-button w-100 bg-gray-700 hover shadow-none" (click)="onSubmit()"

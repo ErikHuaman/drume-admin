@@ -40,17 +40,16 @@
           </div>
         </td>
         <td class="text-center">
-          <button *ngIf="item.active" type="button" class="btn p-button-sm rounded-4 btn-success mx-auto"
-            (click)="item.active = !item.active">ACTIVO</button>
-          <button *ngIf="!item.active" type="button" class="btn p-button-sm rounded-4 btn-warn mx-auto"
-            (click)="item.active = !item.active">INACTIVO</button>
+          <button type="button" class="btn p-button-sm rounded-4 mx-auto"
+          [ngClass]="item.active ? 'btn-success' : 'btn-warn'"
+          (click)="this.changeStatus(item)">{{item.active ? 'ACTIVO' : 'INACTIVO' }}</button>
         </td>
         <td class="text-center">
           <div class="d-flex justify-content-center">
             <button pButton pRipple icon="pi pi-pencil" class="btn btn-circle-xs p-button-success mx-1"
               (click)="editItem(item)"></button>
             <button pButton pRipple icon="pi pi-trash" class="btn btn-circle-xs p-button-danger mx-1"
-              (click)="confirm(item.id)"></button>
+              (click)="deleteItem(item)"></button>
           </div>
         </td>
       </tr>

@@ -79,15 +79,15 @@ export class EmpresaComponent implements OnInit {
 
   save() {
     this.data[this.selected] = $('#summernote').summernote('code');
-    this.msg.loading(true);
+    
     this.apiService.updateInformation(this.data).subscribe({
       next: (res) => {
         this.msg.success(res.msg);
-        this.msg.loading(false);
+        
       },
       error: (res) => {
         this.msg.error(res.error.msg);
-        this.msg.loading(false);
+        
       },
     });
   }
