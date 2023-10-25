@@ -64,6 +64,22 @@
       </div>
       <div class="row" *ngSwitchCase="4">
         <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Cantidad de productos</label>
+          <input pInputText type="number"
+            class="p-inputtext-sm w-100 {{ submited && !data.quantity ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.quantity" />
+          <small *ngIf="submited && !data.quantity" class="p-error block">Es necesario ingresar una cantidad.</small>
+        </div>
+        <div class="col-md-6 mb-3">
+          <label class="fw-bolder mb-2">Precio fijo</label>
+          <input pInputText type="number"
+            class="p-inputtext-sm w-100 {{ submited && !data.fixed ? 'ng-invalid ng-dirty': ''}}"
+            [(ngModel)]="data.fixed" />
+          <small *ngIf="submited && !data.fixed" class="p-error block">Es necesario ingresar un precio.</small>
+        </div>
+      </div>
+      <div class="row" *ngSwitchCase="5">
+        <div class="col-md-6 mb-3">
           <label class="fw-bolder mb-2">Código</label>
           <input pInputText type="text"
             class="p-inputtext-sm w-100 {{ submited && !data.code ? 'ng-invalid ng-dirty': ''}}"
@@ -71,7 +87,7 @@
           <small *ngIf="submited && !data.code" class="p-error block">Es necesario ingresar un código.</small>
         </div>
         <div class="col-md-6 mb-3">
-          <label class="fw-bolder mb-2">Precio fijo</label>
+          <label class="fw-bolder mb-2">Precio a pagar</label>
           <input pInputText type="number"
             class="p-inputtext-sm w-100 {{ submited && !data.fixed ? 'ng-invalid ng-dirty': ''}}"
             [(ngModel)]="data.fixed" />
@@ -84,7 +100,7 @@
 
   <div class="d-flex justify-content-center">
     <button pButton class="p-button-sm p-button-danger mx-2 px-4" (click)="cancel()" label="Cancelar"></button>
-    <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" (click)="save()" label="Guardar"></button>
+    <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" [disabled]="invalid" (click)="save()" label="Guardar"></button>
   </div>
 
 </div>

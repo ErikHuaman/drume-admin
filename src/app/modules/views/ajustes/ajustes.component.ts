@@ -1,17 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { DialogService } from 'primeng/dynamicdialog';
-import { Endpoint } from 'src/app/core/constants/endpoint.constants';
-import {
-  BannerModel,
-  CarouselModel,
-  PaginadorValue,
-} from 'src/app/core/models';
-import { ApiService } from 'src/app/core/services/api.service';
 import { HeaderService } from 'src/app/core/services/header.service';
-import { NuevoBannerComponent } from './banners/nuevo-banner/nuevo-banner.component';
-import { NuevoCarruselComponent } from './carousels/nuevo-carrusel/nuevo-carrusel.component';
 
 @Component({
   selector: 'app-ajustes',

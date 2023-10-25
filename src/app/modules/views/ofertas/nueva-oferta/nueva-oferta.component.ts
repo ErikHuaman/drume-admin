@@ -69,6 +69,27 @@ export class NuevaOfertaComponent implements OnInit {
     this.data.quantityPay = null;
   }
 
+  get invalid(): boolean {
+    if (!this.data.typeId || !this.data.name) {
+      return true;
+    }
+
+    switch (this.data.typeId) {
+      case 1:
+        return (!this.data.percent || this.data.percent < 0 || this.data.percent > 100);
+      case 2: 
+        return !this.data.fixed;
+      case 3:
+        return !this.data.quantity || !this.data.quantityPay;
+      case 4:
+        return !this.data.quantity || !this.data.fixed;
+      case 5:
+        return !this.data.code || !this.data.fixed;
+      default:
+        return false;
+    }
+  }
+
   save() {
     this.submited = true;
 
@@ -89,16 +110,25 @@ export class NuevaOfertaComponent implements OnInit {
         break;
       case 2:
         if (!this.data.fixed) {
+          this.msg.warn('Llena todos los campos');
           return;
         }
         break;
       case 3:
         if (!this.data.quantity || !this.data.quantityPay) {
+          this.msg.warn('Llena todos los campos');
           return;
         }
         break;
       case 4:
+        if (!this.data.quantity || !this.data.fixed) {
+          this.msg.warn('Llena todos los campos');
+          return;
+        }
+        break;
+      case 5:
         if (!this.data.code || !this.data.fixed) {
+          this.msg.warn('Llena todos los campos');
           return;
         }
         break;

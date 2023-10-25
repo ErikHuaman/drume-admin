@@ -14,4 +14,5 @@ export enum Endpoint {
   products = 'products',
   orders = 'orders',
   multimedia = 'multimedia',
+  parameter = 'parameters',
 }

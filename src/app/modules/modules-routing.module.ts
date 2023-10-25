@@ -18,6 +18,7 @@ import { ColorsComponent } from './views/ajustes/colors/colors.component';
 import { EmpresaComponent } from './views/ajustes/empresa/empresa.component';
 import { CanceladosComponent } from './views/pedidos/cancelados/cancelados.component';
 import { MultimediaComponent } from './views/ajustes/multimedia/multimedia.component';
+import { ParametersComponent } from './views/ajustes/parameters/parameters.component';
 
 const routes: Routes = [
   {
@@ -136,6 +137,13 @@ const routes: Routes = [
         component: MultimediaComponent,
         data: {
           title: 'Biblioteca de medios',
+        },
+      },
+      {
+        path: 'ajustes/parametros',
+        component: ParametersComponent,
+        data: {
+          title: 'Parametros',
         },
       },
     ],

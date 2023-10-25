@@ -8,3 +8,4 @@ export * from './size.model';
 export * from './color.model';
 export * from './type.model';
 export * from './discount.model';
+export * from './parameter.model';

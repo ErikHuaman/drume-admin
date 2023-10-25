@@ -40,6 +40,8 @@ import { VincularOfertaComponent } from './views/ofertas/vincular-oferta/vincula
 import { DetallePedidoComponent } from './views/pedidos/componentes/detalle-pedido/detalle-pedido.component';
 import { MultimediaComponent } from './views/ajustes/multimedia/multimedia.component';
 import { ComprobanteComponent } from './views/pedidos/componentes/comprobante/comprobante.component';
+import { ParametersComponent } from './views/ajustes/parameters/parameters.component';
+import { NuevoParametroComponent } from './views/ajustes/parameters/nuevo-parametro/nuevo-parametro.component';
 
 @NgModule({
   declarations: [
@@ -78,6 +80,8 @@ import { ComprobanteComponent } from './views/pedidos/componentes/comprobante/co
     MultimediaComponent,
     ComprobanteComponent,
     LoadingComponent,
+    ParametersComponent,
+    NuevoParametroComponent,
   ],
   imports: [CoreModule, ModulesRoutingModule, AngularSvgIconModule.forRoot()],
   exports: [LoadingComponent],
