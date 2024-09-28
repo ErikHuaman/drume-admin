@@ -8,12 +8,12 @@ import { AuthService } from '../services/auth.service';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class PermissionGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) {}
 
   canActivate(): any {
-    if (!this.authService.isAuth()) {
-      this.router.navigate(['/auth/login']);
+    if (!this.authService.superU) {
+      this.router.navigate(['/dashboard']);
       return false;
     }
 

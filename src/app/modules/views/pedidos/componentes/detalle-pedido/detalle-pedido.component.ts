@@ -18,6 +18,7 @@ export class DetallePedidoComponent implements OnInit {
     state: null,
     tracking: null,
     emision: null,
+    key: null
   };
 
   confirm: boolean = false;

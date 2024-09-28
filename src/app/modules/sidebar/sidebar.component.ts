@@ -11,6 +11,14 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit(): void {}
 
+  get fullName() {
+    return this.authService.fullName;
+  }
+
+  get superU(): boolean {
+    return this.authService.superU;
+  }
+
   logout() {
     this.authService.logout();
   }

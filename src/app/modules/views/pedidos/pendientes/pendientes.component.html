@@ -55,7 +55,7 @@
             </p>
             <label class="fw-bolder">Método de pago</label>
             <p class="m-0">
-              {{ item.payMethod == 'tarjeta' ?  item.payCode : (item.payMethod == 'deposito' ? 'Transferencia' : 'YAPE O PLIN') }}
+              {{ item.payMethod == 'tarjeta' || item.payMethod == 'pago con tarjeta' ?  item.payCode : (item.payMethod == 'deposito' ? 'Transferencia' : 'YAPE O PLIN') }}
             </p>
           </td>
           <td class="text-center text-capitalize" style="width: 14rem !important;">

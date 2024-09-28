@@ -19,6 +19,8 @@ import { EmpresaComponent } from './views/ajustes/empresa/empresa.component';
 import { CanceladosComponent } from './views/pedidos/cancelados/cancelados.component';
 import { MultimediaComponent } from './views/ajustes/multimedia/multimedia.component';
 import { ParametersComponent } from './views/ajustes/parameters/parameters.component';
+import { categoriasComponent } from './views/categorias/categorias.component';
+import { PermissionGuard } from '../core/guards/permission.guard';
 
 const routes: Routes = [
   {
@@ -83,6 +85,14 @@ const routes: Routes = [
         component: ProductosComponent,
         data: {
           title: 'Productos',
+        },
+      },
+      {
+        path: 'categorias',
+        canActivate: [PermissionGuard],
+        component: categoriasComponent,
+        data: {
+          title: 'Categorias',
         },
       },
       {

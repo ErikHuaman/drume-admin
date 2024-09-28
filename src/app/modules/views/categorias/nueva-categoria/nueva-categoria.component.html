@@ -1,0 +1,38 @@
+<div class="container-fluid">
+  <div class="row">
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Nombre de la categoría</label>
+      <input pInputText type="text" class="p-inputtext-sm w-100 {{ submited && !data.name ? 'ng-invalid ng-dirty': ''}}"
+        [(ngModel)]="data.name" />
+      <small *ngIf="submited && !data.name" class="p-error block">Es necesario ingresar un nombre.</small>
+    </div>
+
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Foto principal <i><small>(1MB como máximo)</small></i> </label>
+      <input #fileUpload type="file" accept="image/*" class="d-none" (change)="captureImage($event)">
+      <button pButton class="p-button-sm btn-sky-700 w-100" icon="fas fa-camera" (click)="fileUpload.click()"></button>
+      <div *ngIf="this.preview" class="w-100 d-flex justify-content-center p-2" style="height: 18rem;">
+        <img loading="lazy" class="border" style="height: 100%;" [src]="this.preview" alt="" srcset="">
+      </div>
+    </div>
+
+    <div class="col-12 mb-3">
+      <label class="fw-bolder mb-2">Imagen de fondo <i><small>(1MB como máximo)</small></i> </label>
+      <input #fileCoverUpload type="file" accept="image/*" class="d-none" (change)="captureCoverImage($event)">
+      <button pButton class="p-button-sm btn-sky-700 w-100" icon="fas fa-camera" (click)="fileCoverUpload.click()"></button>
+      <div *ngIf="this.previewCover" class="w-100 d-flex justify-content-center p-2" style="height: 18rem;">
+        <img loading="lazy" class="border" style="width: 100%;" [src]="this.previewCover" alt="" srcset="">
+      </div>
+    </div>
+
+  </div>
+
+  <div class="d-flex justify-content-center">
+    <button pButton class="p-button-sm p-button-danger mx-2 px-4" (click)="cancel()" label="Cancelar"></button>
+    <button pButton class="p-button-sm btn-gray-700 mx-2 px-4" (click)="save()"
+      [label]=" this.isEdit ? 'Actualizar' : 'Guardar'" [disabled]="invalidForm"></button>
+  </div>
+
+</div>

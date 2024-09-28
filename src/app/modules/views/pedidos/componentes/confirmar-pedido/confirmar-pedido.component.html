@@ -90,7 +90,7 @@
         <div class="col-6">
           <label class="fw-bolder mb-2">Método de pago</label>
           <p-dropdown styleClass="w-100 p-inputtext-sm" [options]="listMethods" [(ngModel)]="this.data.method"
-            placeholder="Seleccionar categoría" appendTo="body">
+            placeholder="Seleccionar categoría" appendTo="body" [disabled]="this.order.payCode == 'Izipay'">
           </p-dropdown>
         </div>
       </div>

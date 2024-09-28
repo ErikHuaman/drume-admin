@@ -9,7 +9,7 @@ import { HeaderService } from '../core/services/header.service';
       </div>
       <div class="main" [ngClass]="{ active: _h.showSidebar }">
         <header-drume></header-drume>
-        <main class="main-outlet">
+        <main class="main-outlet px-4">
           <router-outlet></router-outlet>
         </main>
       </div>

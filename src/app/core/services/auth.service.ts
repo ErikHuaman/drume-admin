@@ -40,7 +40,7 @@ export class AuthService {
     this.router.navigate(['/']);
   }
 
-  currentUser() {
+  get currentUser() {
     return localStorage.getItem('user')
       ? JSON.parse(localStorage.getItem('user'))
       : null;
@@ -51,6 +51,14 @@ export class AuthService {
       ? JSON.parse(localStorage.getItem('user')).token
       : null;
     return this.token;
+  }
+
+  get superU(): boolean{
+    return this.currentUser?.superU
+  }
+
+  get fullName(): string{
+    return `${this.currentUser?.name} ${this.currentUser?.lastName}`
   }
 
   isAuth(): boolean {

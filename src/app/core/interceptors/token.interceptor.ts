@@ -5,6 +5,7 @@ import {catchError, finalize, map, tap} from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
 import { MessageGlobalService } from '../services/message-global.service';
 import { AuthService } from '../services/auth.service';
+import { error } from 'console';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
@@ -31,6 +32,9 @@ export class TokenInterceptor implements HttpInterceptor {
               return event;
             }),
             catchError(err => {
+                if(err?.status === 409){
+                    this.authService.logout();
+                }
               return throwError(err);
             }),
             finalize(() => {

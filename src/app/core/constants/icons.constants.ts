@@ -34,7 +34,6 @@ export const iconNames = [
   { url: 'user_large', name: 'user_l' },
   { url: 'visa', name: 'visa' },
   { url: 'whatsapp', name: 'whatsapp' },
-  { url: 'logo', name: 'logo' },
   { url: 'flag_peru', name: 'flag_peru' },
   { url: 'guarantee', name: 'guarantee' },
   { url: 'support', name: 'support' },

@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://drume.com.pe/api/',
-  mediaUrl: 'https://drume.com.pe/',
+  apiUrl: 'https://alezzeperu.com/api/',
+  mediaUrl: 'https://alezzeperu.com/',
   mailUrl: 'https://premium121.web-hosting.com:2096/webmaillogout.cgi'
 };

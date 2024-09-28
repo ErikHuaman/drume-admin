@@ -96,15 +96,19 @@
 
     <div *ngIf="this.order.stateId == 3 && this.order.shipMethod == 'delivery'" class="col-12 mb-2 border">
       <div class="row">
-        <div class="col-6 my-2">
+        <div class="col-4 my-2">
           <label class="fw-bolder mb-2">Emisión</label>
           <input pInputText type="text" class="p-inputtext-sm w-100" [(ngModel)]="data.emision"
             (keypress)="keyPress($event)" maxlength="4" />
         </div>
-        <div class="col-6 my-2">
+        <div class="col-4 my-2">
           <label class="fw-bolder mb-2">Tracking</label>
           <input pInputText type="text" class="p-inputtext-sm w-100" [(ngModel)]="data.tracking"
             (keypress)="keyPress($event)" />
+        </div>
+        <div class="col-4 my-2">
+          <label class="fw-bolder mb-2">Clave</label>
+          <input pInputText type="text" class="p-inputtext-sm w-100" [(ngModel)]="data.key"/>
         </div>
       </div>
     </div>

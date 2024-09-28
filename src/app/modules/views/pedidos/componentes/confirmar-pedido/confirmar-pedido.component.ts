@@ -28,10 +28,12 @@ export class ConfirmarPedidoComponent implements OnInit {
     this.order = config.data;
     this.data.id = this.order.id;
 
+    this.data.method = this.order.payCode == "Izipay" ? "Izipay" : null;
+
     this.listMethods =
-      config.data.payMethod == 'deposito'
+    this.order.payMethod == 'deposito'
         ? ['BANCO DE LA NACIÓN', 'BCP', 'INTERBANK', 'SCOTIABANK', 'BBVA']
-        : ['YAPE', 'PLIN'];
+        : this.order.payMethod == 'yapeplin' ? ['YAPE', 'PLIN'] : ["Izipay"];
   }
 
   ngOnInit(): void {}

@@ -5,7 +5,8 @@
     "ng": "ng",
     "start": "ng serve --port 4001",
     "build": "ng build --configuration production",
-    "dev": "ng build --configuration development",
+    "build-d": "ng build --configuration development",
+    "dev": "ng serve --port 4001",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

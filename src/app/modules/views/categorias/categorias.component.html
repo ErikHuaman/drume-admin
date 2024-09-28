@@ -1,0 +1,72 @@
+<div class="container-fluid py-2 py-md-2">
+
+  <div class="d-flex justify-content-between mb-4">
+    <div>
+      <span class="p-input-icon-right">
+        <i class="fas fa-times pointer" (click)="limpiar()"></i>
+        <input pInputText type="text" class="p-inputtext-sm rounded-0 rounded-start" placeholder="Nombre"
+          [(ngModel)]="nameSearch" />
+      </span>
+      <button pButton class="p-button-sm btn-gray-700 rounded-0 rounded-end" icon="fas fa-magnifying-glass"
+        (click)="buscar()"></button>
+    </div>
+    <div>
+      <button pButton class="p-button-sm btn-gray-700" icon="fas fa-plus" (click)="newRegister()"
+        label="Nueva Categoria"></button>
+    </div>
+  </div>
+
+  <p-table styleClass="p-datatable-sm p-datatable-gridlines p-datatable-striped table-thead-dark"
+    responsiveLayout="scroll" [value]="this.data">
+
+    <ng-template pTemplate="header">
+      <tr>
+        <th class="text-center" style="width: 6rem !important;">Id</th>
+        <th class="text-center text-lg-start">Nombre</th>
+        <th class="text-center" style="width: 12rem !important;">Imagen</th>
+        <th class="text-center" style="width: 12rem !important;">Imagen de fondo</th>
+        <th class="text-center" style="width: 8rem !important;">Estado</th>
+        <th class="text-center" style="width: 10rem !important;">Opciones</th>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item>
+      <tr>
+        <td class="text-center">{{ item.id }}</td>
+        <td class="text-left text-capitalize">{{ item.name }}</td>
+        <td class="text-center">
+          <img loading="lazy" width="72" [src]="this.mediaUrl + item.image" [alt]="item.name">
+        </td>
+        <td class="text-center">
+          <img loading="lazy" width="144" [src]="this.mediaUrl + item.coverImage" [alt]="item.name">
+        </td>
+        <td class="text-center">
+          <button type="button" class="btn p-button-sm rounded-4 mx-auto"
+            [ngClass]="item.active ? 'btn-success' : 'btn-warn' "
+            (click)="this.changeStatus(item)">{{item.active ? 'ACTIVO' : 'INACTIVO' }}</button>
+        </td>
+        <td class="text-center">
+          <div class="d-flex justify-content-center">
+            <button pButton pRipple icon="pi pi-pencil" class="btn btn-circle-xs p-button-success mx-1"
+              (click)="editItem(item)"></button>
+            <button pButton pRipple icon="pi pi-trash" class="btn btn-circle-xs p-button-danger mx-1"
+              (click)="deleteItem(item)"></button>
+          </div>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template pTemplate="emptymessage">
+      <tr>
+        <td class="text-center" colspan="100">
+          No se encontró resultados
+        </td>
+      </tr>
+    </ng-template>
+
+  </p-table>
+
+  <paginator-drume [(ngModel)]="paginadorValue" [rowsPerPageOptions]="[10, 25, 50, 100]"
+    (change)="this.getData()"></paginator-drume>
+
+</div>

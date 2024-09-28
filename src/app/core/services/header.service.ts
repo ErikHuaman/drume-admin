@@ -6,6 +6,8 @@ import { Injectable } from '@angular/core';
 export class HeaderService {
   title: string = '';
 
+  private _info: any;
+
   showSidebar: boolean = true;
   showMobile: boolean = false;
 
@@ -18,5 +20,13 @@ export class HeaderService {
   setSidebar() {
     this.showSidebar = !this.showSidebar;
     this.showMobile = !this.showMobile;
+  }
+
+  set info(val: any) {
+    this._info = val;
+  }
+
+  get info() {
+    return this._info;
   }
 }

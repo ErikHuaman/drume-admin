@@ -34,7 +34,7 @@
                 <h5 class="mb-2">{{product.name}}</h5>
                 <i class="pi pi-bookmark product-category-icon"></i>
                 <span class="product-category">{{product.collection.name}}, {{product.collection.category.name}}</span>
-                <p class="mt-2" *ngIf="product.productColors[0].discountId">
+                <p class="mt-2" *ngIf="product.productColors[0].discount">
                   <i class="pi pi-tag product-category-icon"></i>
                   <span class="product-category">{{product.productColors[0].discount.name}}</span>
                 </p>

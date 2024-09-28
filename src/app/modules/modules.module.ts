@@ -42,6 +42,8 @@ import { MultimediaComponent } from './views/ajustes/multimedia/multimedia.compo
 import { ComprobanteComponent } from './views/pedidos/componentes/comprobante/comprobante.component';
 import { ParametersComponent } from './views/ajustes/parameters/parameters.component';
 import { NuevoParametroComponent } from './views/ajustes/parameters/nuevo-parametro/nuevo-parametro.component';
+import { categoriasComponent } from './views/categorias/categorias.component';
+import { NuevaCategoriaComponent } from './views/categorias/nueva-categoria/nueva-categoria.component';
 
 @NgModule({
   declarations: [
@@ -56,12 +58,14 @@ import { NuevoParametroComponent } from './views/ajustes/parameters/nuevo-parame
     VentasComponent,
     CanceladosComponent,
     ProductosComponent,
+    categoriasComponent,
     ColeccionesComponent,
     OfertasComponent,
     AjustesComponent,
     DashCardComponent,
     PaginatorComponent,
     NuevoProductoComponent,
+    NuevaCategoriaComponent,
     NuevaColeccionComponent,
     NuevoBannerComponent,
     NuevoCarruselComponent,

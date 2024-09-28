@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, Injector } from '@angular/core';
 import { iconNames, pathIcons } from './core/constants/icons.constants';
 import { SvgIconRegistryService } from 'angular-svg-icon';
-import { filter, Subject, takeUntil } from 'rxjs';
+import { Subject, takeUntil } from 'rxjs';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { MessageGlobalService } from './core/services/message-global.service';
-
-declare var $: any;
+import { HeaderService } from './core/services/header.service';
+import { Meta, Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -23,8 +23,10 @@ export class AppComponent implements OnInit, OnDestroy {
   loading: boolean = false;
 
   constructor(
+    private meta: Meta,
     private iconReg: SvgIconRegistryService,
-    private injector: Injector
+    private injector: Injector,
+    private headerService: HeaderService
   ) {
     this.messageService = this.injector.get<MessageService>(MessageService);
 
@@ -35,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.setMetaTags();
     this.loadIcons();
 
     this.showMessage();
@@ -47,13 +50,46 @@ export class AppComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.complete();
   }
 
+  setMetaTags(): void {
+    this.meta.addTags([
+      { name: 'description', content: this.headerService.info.description },
+      { name: 'keywords', content: this.headerService.info.keywords },
+      { property: 'og:title', content: this.headerService.info.title },
+      {
+        property: 'og:description',
+        content: this.headerService.info.description,
+      },
+    ]);
+    if (this.headerService.info.icono) {
+      const link: HTMLLinkElement = document.createElement('link');
+      link.rel = 'icon';
+      link.type = 'image/x-icon';
+      link.href = this.headerService.info.icono;
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+  }
+
   loadIcons() {
     iconNames.forEach((icon) => {
       this.iconReg
-        .loadSvg(pathIcons + icon.url + '.svg', icon.name)
+        .loadSvg(`${pathIcons}${icon.url}.svg`, icon.name)
         .pipe(takeUntil(this._unsubscribeAll))
         .subscribe();
     });
+
+    let logoUrl = `${pathIcons}logo.svg`;
+
+    if (this.headerService.info.logo) {
+      const blob = new Blob([this.headerService.info.logo], {
+        type: 'image/svg+xml',
+      });
+      logoUrl = URL.createObjectURL(blob);
+    }
+
+    this.iconReg
+      .loadSvg(logoUrl, 'logo')
+      .pipe(takeUntil(this._unsubscribeAll))
+      .subscribe();
   }
 
   private showMessage() {
